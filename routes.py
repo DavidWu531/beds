@@ -13,9 +13,10 @@ def home_page():
 def all_bed_base():
     conn = sqlite3.connect('beds.db')
     cur = conn.cursor()
-    cur.execute("SELECT * FROM Base;")
+    cur.execute("SELECT * FROM Base")
 
-    return render_template('base.html')
+    base = cur.fetchall()
+    return render_template('base.html', base=base)
 
 
 @app.route('/bed_base/<int:id>')
@@ -26,6 +27,16 @@ def bed_base(id):
 
     base = cur.fetchone()
     return render_template('base.html', base=base)
+
+
+@app.route('/mattress')
+def all_mattress():
+    conn = sqlite3.connect('beds.db')
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM Mattress;")
+
+    mattress = cur.fetchall()
+    return render_template('mattress.html', mattress=mattress)
 
 
 if __name__ == "__main__":

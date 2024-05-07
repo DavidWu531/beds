@@ -2,12 +2,6 @@ body {
     background-color: lightblue;
   }
   
-  h1:hover {
-    color: red;
-    cursor: grab;
-    text-align: center;
-  }
-  
   p {
     color: darkgreen;
     font-family: "Honk", system-ui;
