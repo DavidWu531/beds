@@ -39,5 +39,35 @@ def all_mattress():
     return render_template('mattress.html', mattress=mattress)
 
 
+@app.route('/mattress/<int:id>')
+def mattress(id):
+    conn = sqlite3.connect('beds.db')
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM Mattress WHERE MattressID=?', (id,))
+
+    mattress = cur.fetchone()
+    return render_template('mattress.html', mattress=mattress)
+
+
+@app.route('/blanket')
+def all_blanket():
+    conn = sqlite3.connect('beds.db')
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM Blanket')
+
+    blanket = cur.fetchall()
+    return render_template('blanket.html', blanket=blanket)
+
+
+@app.route('/blanket/<int:id>')
+def blanket(id):
+    conn = sqlite3.connect('beds.db')
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM Blanket WHERE BlanketID=?', (id,))
+
+    blanket = cur.fetchone()
+    return render_template('blanket.html', blanket=blanket)
+
+
 if __name__ == "__main__":
     app.run(debug=True)
