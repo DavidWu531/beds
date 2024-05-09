@@ -53,7 +53,7 @@ def mattress(id):
 def all_blanket():
     conn = sqlite3.connect('beds.db')
     cur = conn.cursor()
-    cur.execute('SELECT * FROM Blanket')
+    cur.execute('SELECT * FROM Blankets')
 
     blanket = cur.fetchall()
     return render_template('blanket.html', blanket=blanket)
@@ -63,7 +63,7 @@ def all_blanket():
 def blanket(id):
     conn = sqlite3.connect('beds.db')
     cur = conn.cursor()
-    cur.execute('SELECT * FROM Blanket WHERE BlanketID=?', (id,))
+    cur.execute('SELECT * FROM Blankets WHERE BlanketID=?', (id,))
 
     blanket = cur.fetchone()
     return render_template('blanket.html', blanket=blanket)
