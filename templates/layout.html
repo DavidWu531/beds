@@ -1,13 +1,24 @@
 <!doctype html>
 <html>
   <head>
-<ul>
-  <li><a class="active" href="/">Home</a></li>
-  <li><a href="/bed_base">Bed Bases</a></li>
-  <li><a href="/mattress">Mattresses</a></li>
-  <li><a href="/blanket">Blankets</a></li>
-  </ul>
-</div>
+<div class="navbar">
+    <ul>
+    <li><a class="active" href="/">Home</a></li>
+    <div class="dropdown">
+      <button class="dropbtn">>Bed Bases
+      </button>
+      <div class="dropdown-content">
+        <a href="/">Kyan Double Bed</a>
+        <a href="/">Vincent King Bed</a>
+        <a href="/">Adjustable</a>
+        <a href="/">Standard Bed Base</a>
+      </div>
+    </div>
+    <li><a href="/bed_base">Bed Bases</a></li>
+    <li><a href="/mattress">Mattresses</a></li>
+    <li><a href="/blanket">Blankets</a></li>
+    </ul>
+  </div>
     <title>Bed World</title>
     <link rel="stylesheet" href="/static/style.css">
   </head>
@@ -15,7 +26,6 @@
     <header>
       <h1>THIS IS THE WORLD OF BEDS</h1>
     </header>
-    <nav>NAVBAR!</nav>  
     <main>
       {% block content %}{% endblock %}
     </main>

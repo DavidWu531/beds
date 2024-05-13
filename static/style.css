@@ -3,8 +3,9 @@ body {
 }
   
 p {
-  color: darkgreen;
-  font-family: "Honk", system-ui;
+  color: darkgoldenrod;
+  font-family: "Comic Sans MS";
+  background-color: firebrick;
 }
 
 ul {
