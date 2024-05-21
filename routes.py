@@ -39,6 +39,26 @@ def all_mattress():
     return render_template('mattress.html', mattress=mattress)
 
 
+@app.route('/triangle/<string:direction>/<int:size>')
+def triangle(direction, size):
+    bits = []
+    if direction == "up_right":
+        n = 1
+
+        for i in range(size):
+            bits.append(" " * (n - size) + "*" * n)
+            n += 1
+
+    elif direction == "down_right":
+        n = size
+
+        for i in range(size):
+            bits.append(" " * (n - size) + "*" * n)
+            n -= 1
+
+    return ('<br>'.join(bits))
+
+
 @app.route('/mattress/<int:id>')
 def mattress(id):
     conn = sqlite3.connect('beds.db')
