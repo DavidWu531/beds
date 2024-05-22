@@ -42,21 +42,39 @@ def all_mattress():
 @app.route('/triangle/<string:direction>/<int:size>')
 def triangle(direction, size):
     bits = []
-    if direction == "up_right":
-        n = 1
+    if direction == "up_right" or direction == "down_right":
+        if direction == "up_right":
+            n = 1
 
-        for i in range(size):
-            bits.append(" " * (n - size) + "*" * n)
-            n += 1
+            for i in range(size):
+                bits.append(" " * (n - size) + "*" * n)
+                n += 1
 
-    elif direction == "down_right":
-        n = size
+        elif direction == "down_right":
+            n = size
 
-        for i in range(size):
-            bits.append(" " * (n - size) + "*" * n)
-            n -= 1
+            for i in range(size):
+                bits.append(" " * (n - size) + "*" * n)
+                n -= 1
 
-    return ('<br>'.join(bits))
+        return ('<br>'.join(bits))
+
+    elif direction == "up_pyramid" or direction == "down_pyramid":
+        if direction == "up_pyramid":
+            n = 1
+
+            for i in range(size):
+                bits.append("&nbsp" * (size - n) + "*" * (2 * n - 1))
+                n += 1
+
+        elif direction == "down_pyramid":
+            n = size
+
+            for i in range(size):
+                bits.append("&nbsp" * (size - n) + "*" * (2 * n - 1))
+                n -= 1
+
+        return ('<br>'.join(bits))
 
 
 @app.route('/mattress/<int:id>')
