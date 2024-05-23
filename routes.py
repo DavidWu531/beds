@@ -39,9 +39,13 @@ def all_mattress():
     return render_template('mattress.html', mattress=mattress)
 
 
+@app.route('/triangles')
+def triangles():
+    return render_template('triangles.html')
+
+
 @app.route('/triangle/<string:direction>/<int:size>')
 def triangle(direction, size):
-    
     bits = []
     if direction == "up_right" or direction == "down_right":
         if direction == "up_right":
@@ -76,13 +80,13 @@ def triangle(direction, size):
                 n -= 1
 
         return ('<br>'.join(bits))
-    
+
     elif direction == "diamond":
         for i in range(1, size + 1):
             bits.append("&nbsp" * (size - i) + "*" * (2 * i - 1))
         for i in range(size - 1, 0, -1):
             bits.append("&nbsp" * (size - i) + "*" * (2 * i - 1))
-        
+
         return ('<br>'.join(bits))
 
 
