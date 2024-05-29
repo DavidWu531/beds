@@ -1,7 +1,19 @@
 body {
-    background-color: lightblue;
+    background-color: #6dc0d5;
 }
-  
+
+.blanket_route {
+  background-color: #399e5a;
+}
+
+.bed_base_route {
+  background-color: #464f51;
+}
+
+.mattress_route {
+  background-color: #c3a995;
+}
+
 p {
   color: black;
   font-family: "Roboto", sans-serif;
