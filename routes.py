@@ -4,12 +4,12 @@ import sqlite3
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/')  # Home Route
 def home_page():
     return render_template('home.html')
 
 
-@app.route('/bed_base')
+@app.route('/bed_base')  # All Bed Base Route
 def all_bed_base():
     conn = sqlite3.connect('beds.db')
     cur = conn.cursor()
@@ -19,7 +19,7 @@ def all_bed_base():
     return render_template('base.html', base=base)
 
 
-@app.route('/bed_base/<int:id>')
+@app.route('/bed_base/<int:id>')  # Individual Bed Base Route
 def bed_base(id):
     conn = sqlite3.connect('beds.db')
     cur = conn.cursor()
@@ -29,7 +29,7 @@ def bed_base(id):
     return render_template('base.html', base=base)
 
 
-@app.route('/mattress')
+@app.route('/mattress')  # All Mattress Route
 def all_mattress():
     conn = sqlite3.connect('beds.db')
     cur = conn.cursor()
@@ -39,12 +39,12 @@ def all_mattress():
     return render_template('mattress.html', mattress=mattress)
 
 
-@app.route('/triangles')
+@app.route('/triangles')  # Triangle Route
 def triangles():
     return render_template('triangles.html')
 
 
-@app.route('/triangle/<string:direction>/<int:size>')
+@app.route('/triangle/<string:direction>/<int:size>')  # Individual Triangle Route
 def triangle(direction, size):
     bits = []
     if direction == "up_right" or direction == "down_right":
@@ -90,7 +90,7 @@ def triangle(direction, size):
         return ('<br>'.join(bits))
 
 
-@app.route('/mattress/<int:id>')
+@app.route('/mattress/<int:id>')  # Individual Mattress Route
 def mattress(id):
     conn = sqlite3.connect('beds.db')
     cur = conn.cursor()
@@ -100,7 +100,7 @@ def mattress(id):
     return render_template('mattress.html', mattress=mattress)
 
 
-@app.route('/blanket')
+@app.route('/blanket')  # All Blanket Route
 def all_blanket():
     conn = sqlite3.connect('beds.db')
     cur = conn.cursor()
@@ -110,7 +110,7 @@ def all_blanket():
     return render_template('blanket.html', blanket=blanket)
 
 
-@app.route('/blanket/<int:id>')
+@app.route('/blanket/<int:id>')  # Individual Blanket Route
 def blanket(id):
     conn = sqlite3.connect('beds.db')
     cur = conn.cursor()
@@ -120,5 +120,5 @@ def blanket(id):
     return render_template('blanket.html', blanket=blanket)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # Running the website
     app.run(debug=True)
