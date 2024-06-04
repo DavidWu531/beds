@@ -1,18 +1,18 @@
 <!doctype html>
 <html>
 <head>
-<div class="navbar">
+<div class="navbar"> <!--Navigation Bar on the top-->
     <ul>
     <li><a class="active" href="/">Home</a></li>
     <div class="dropdown">
     <button class="dropbtn">
       <a href="/bed_base">Bed Bases</a>
     </button>
-    <div class="dropdown-content" id="bed_base_dropdown">
-      <a href="/bed_base/1">1</a>
-      <a href="/bed_base/2">2</a>
-      <a href="/bed_base/3">3</a>
-      <a href="/bed_base/4">4</a>
+    <div class="dropdown-content" id="bed_base_dropdown"> <!--Hovering and Clickable Dropdown-->
+      <a href="/bed_base/1">Kyan Double Bed</a> <!--Options-->
+      <a href="/bed_base/2">Vincent King Bed</a>
+      <a href="/bed_base/3">Adjustable</a>
+      <a href="/bed_base/4">Standard Bed Base</a>
     </div>
     </div>
 
@@ -20,10 +20,10 @@
     <button class="dropbtn">
       <a href="/mattress">Mattresses</a>
     </button>
-    <div class="dropdown-content" id="mattress_dropdown">
-      <a href="/mattress/1">1</a>
-      <a href="/mattress/2">2</a>
-      <a href="/mattress/3">3</a>
+    <div class="dropdown-content" id="mattress_dropdown"> <!--Hovering and Clickable Dropdown-->
+      <a href="/mattress/1">Tempur-Ped</a> <!--Options-->
+      <a href="/mattress/2">Zenhaven</a>
+      <a href="/mattress/3">Leesa Original</a>
     </div>
     </div>
   
@@ -31,10 +31,10 @@
     <button class="dropbtn">
       <a href="/blanket">Blankets</a>
     </button>
-    <div class="dropdown-content" id="blanket_dropdown">
-      <a href="/blanket/1">1</a>
-      <a href="/blanket/2">2</a>
-      <a href="/blanket/3">3</a>
+    <div class="dropdown-content" id="blanket_dropdown"> <!--Hovering and Clickable Dropdown-->
+      <a href="/blanket/1">Sleep Lab</a> <!--Options-->
+      <a href="/blanket/2">Galaxy</a>
+      <a href="/blanket/3">Cuddledow</a>
     </div>
     </div>
     <img align="right" src="static/images/White_Bed_29.png" width="70" height="70">
@@ -43,16 +43,16 @@
 </div>
 
     <title>Bed World</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/style.css"> <!--Get styles from style.css-->
   </head>
   <body>
     <header>
-      <h1>THIS IS THE WORLD OF BEDS</h1>
+      <h1>THIS IS THE WORLD OF BEDS</h1> <!--Header-->
     </header>
     <main>
       {% block content %}{% endblock %}
     </main>
-    <footer>Congratulations, you scrolled to the bottom<br>
+    <footer>Congratulations, you scrolled to the bottom<br> <!--Current Footer-->
       However, you shouldn't be reading this<br>
       Go back up, please</footer>
 

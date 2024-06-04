@@ -39,7 +39,7 @@ def all_mattress():
     return render_template('mattress.html', mattress=mattress)
 
 
-@app.route('/triangles')  # Triangle Route
+@app.route('/triangles')  # All Triangle Route
 def triangles():
     return render_template('triangles.html')
 
