@@ -9,6 +9,7 @@ def home_page():
     return render_template('home.html')
 
 
+# All Bed Base Source: https://thebedshop.co.nz/collections/bed-bases
 @app.route('/bed_base')  # All Bed Base Route
 def all_bed_base():
     conn = sqlite3.connect('beds.db')
@@ -36,6 +37,16 @@ def all_mattress():
     cur.execute("SELECT * FROM Mattress;")
 
     mattress = cur.fetchall()
+    return render_template('mattress.html', mattress=mattress)
+
+
+@app.route('/mattress/<int:id>')  # Individual Mattress Route
+def mattress(id):
+    conn = sqlite3.connect('beds.db')
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM Mattress WHERE MattressID=?', (id,))
+
+    mattress = cur.fetchone()
     return render_template('mattress.html', mattress=mattress)
 
 
@@ -88,16 +99,6 @@ def triangle(direction, size):
             bits.append("&nbsp" * (size - i) + "*" * (2 * i - 1))
 
         return ('<br>'.join(bits))
-
-
-@app.route('/mattress/<int:id>')  # Individual Mattress Route
-def mattress(id):
-    conn = sqlite3.connect('beds.db')
-    cur = conn.cursor()
-    cur.execute('SELECT * FROM Mattress WHERE MattressID=?', (id,))
-
-    mattress = cur.fetchone()
-    return render_template('mattress.html', mattress=mattress)
 
 
 @app.route('/blanket')  # All Blanket Route
