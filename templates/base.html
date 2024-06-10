@@ -4,6 +4,7 @@
 <p class="base">
     This is a test to show the list of bed bases currently in the database
     </p>
-{{base}} <!--Obtain all bed bases-->
+<!--Obtain all bed bases-->
+{% for individual_base in base %} {{individual_base[1]}} <br> {% endfor %} 
 {% endblock %}
 </body>

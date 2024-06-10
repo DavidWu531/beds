@@ -30,6 +30,7 @@ def bed_base(id):
     return render_template('base.html', base=base)
 
 
+# All Mattress Source: https://www.bedsrus.co.nz/collections/mattress-only | https://mattresswarehouse.co.nz/collections/mattresses
 @app.route('/mattress')  # All Mattress Route
 def all_mattress():
     conn = sqlite3.connect('beds.db')
