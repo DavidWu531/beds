@@ -17,7 +17,7 @@ def all_bed_base():
     cur.execute("SELECT * FROM Base")
 
     base = cur.fetchall()
-    return render_template('base.html', base=base)
+    return render_template('all_base.html', base=base)
 
 
 @app.route('/bed_base/<int:id>')  # Individual Bed Base Route
@@ -27,7 +27,7 @@ def bed_base(id):
     cur.execute('SELECT * FROM Base WHERE BaseID=?', (id,))
 
     base = cur.fetchone()
-    return render_template('base.html', base=base)
+    return render_template('individual_base.html', base=base)
 
 
 # All Mattress Source: https://www.bedsrus.co.nz/collections/mattress-only | https://mattresswarehouse.co.nz/collections/mattresses
@@ -38,7 +38,7 @@ def all_mattress():
     cur.execute("SELECT * FROM Mattress;")
 
     mattress = cur.fetchall()
-    return render_template('mattress.html', mattress=mattress)
+    return render_template('all_mattress.html', mattress=mattress)
 
 
 @app.route('/mattress/<int:id>')  # Individual Mattress Route
@@ -48,7 +48,7 @@ def mattress(id):
     cur.execute('SELECT * FROM Mattress WHERE MattressID=?', (id,))
 
     mattress = cur.fetchone()
-    return render_template('mattress.html', mattress=mattress)
+    return render_template('individual_mattress.html', mattress=mattress)
 
 
 @app.route('/triangles')  # All Triangle Route
@@ -109,7 +109,7 @@ def all_blanket():
     cur.execute('SELECT * FROM Blankets')
 
     blanket = cur.fetchall()
-    return render_template('blanket.html', blanket=blanket)
+    return render_template('all_blanket.html', blanket=blanket)
 
 
 @app.route('/blanket/<int:id>')  # Individual Blanket Route
@@ -119,7 +119,7 @@ def blanket(id):
     cur.execute('SELECT * FROM Blankets WHERE BlanketID=?', (id,))
 
     blanket = cur.fetchone()
-    return render_template('blanket.html', blanket=blanket)
+    return render_template('individual_blanket.html', blanket=blanket)
 
 
 if __name__ == "__main__":  # Running the website

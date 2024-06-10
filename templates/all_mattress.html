@@ -4,6 +4,7 @@
 <i><p class="base">
     This is a test to show the list of mattresses currently in the database
     </p></i>
-{{mattress}} <!--Obtain all mattresses-->
+<!--Obtain all mattresses-->
+{% for individial_mattress in mattress %} {{individial_mattress[1]}} <br> {% endfor %} 
 {% endblock %}
 </body>
