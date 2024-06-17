@@ -51,6 +51,27 @@ def mattress(id):
     return render_template('individual_mattress.html', mattress=mattress)
 
 
+# All Blanket Source: https://www.bedbathntable.co.nz/bed/bed-linen/blankets
+@app.route('/blanket')  # All Blanket Route
+def all_blanket():
+    conn = sqlite3.connect('beds.db')
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM Blankets')
+
+    blanket = cur.fetchall()
+    return render_template('all_blanket.html', blanket=blanket)
+
+
+@app.route('/blanket/<int:id>')  # Individual Blanket Route
+def blanket(id):
+    conn = sqlite3.connect('beds.db')
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM Blankets WHERE BlanketID=?', (id,))
+
+    blanket = cur.fetchone()
+    return render_template('individual_blanket.html', blanket=blanket)
+
+
 @app.route('/triangles')  # All Triangle Route
 def triangles():
     return render_template('triangles.html')
@@ -100,26 +121,6 @@ def triangle(direction, size):
             bits.append("&nbsp" * (size - i) + "*" * (2 * i - 1))
 
         return ('<br>'.join(bits))
-
-
-@app.route('/blanket')  # All Blanket Route
-def all_blanket():
-    conn = sqlite3.connect('beds.db')
-    cur = conn.cursor()
-    cur.execute('SELECT * FROM Blankets')
-
-    blanket = cur.fetchall()
-    return render_template('all_blanket.html', blanket=blanket)
-
-
-@app.route('/blanket/<int:id>')  # Individual Blanket Route
-def blanket(id):
-    conn = sqlite3.connect('beds.db')
-    cur = conn.cursor()
-    cur.execute('SELECT * FROM Blankets WHERE BlanketID=?', (id,))
-
-    blanket = cur.fetchone()
-    return render_template('individual_blanket.html', blanket=blanket)
 
 
 if __name__ == "__main__":  # Running the website
