@@ -9,7 +9,7 @@ def home_page():
     return render_template('home.html')
 
 
-# All Bed Base Source: https://thebedshop.co.nz/collections/bed-bases
+# All Bed Base Sources: https://thebedshop.co.nz/collections/bed-bases
 @app.route('/bed_base')  # All Bed Base Route
 def all_bed_base():
     conn = sqlite3.connect('beds.db')
@@ -30,7 +30,7 @@ def bed_base(id):
     return render_template('individual_base.html', base=base)
 
 
-# All Mattress Source: https://www.bedsrus.co.nz/collections/mattress-only | https://mattresswarehouse.co.nz/collections/mattresses
+# All Mattress Sources: https://www.bedsrus.co.nz/collections/mattress-only | https://mattresswarehouse.co.nz/collections/mattresses
 @app.route('/mattress')  # All Mattress Route
 def all_mattress():
     conn = sqlite3.connect('beds.db')
@@ -51,7 +51,7 @@ def mattress(id):
     return render_template('individual_mattress.html', mattress=mattress)
 
 
-# All Blanket Source: https://www.bedbathntable.co.nz/bed/bed-linen/blankets
+# All Blanket Sources: https://www.bedbathntable.co.nz/bed/bed-linen/blankets
 @app.route('/blanket')  # All Blanket Route
 def all_blanket():
     conn = sqlite3.connect('beds.db')
