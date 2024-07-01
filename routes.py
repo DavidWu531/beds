@@ -62,7 +62,8 @@ def all_blanket():
     return render_template('all_blanket.html', blanket=blanket)
 
 
-@app.route('/blanket/<int:id>')  # Individual Blanket Route
+# Individual Blanket Route
+@app.route('/blanket/<int:id>')
 def blanket(id):
     conn = sqlite3.connect('beds.db')
     cur = conn.cursor()
@@ -72,56 +73,6 @@ def blanket(id):
     return render_template('individual_blanket.html', blanket=blanket)
 
 
-@app.route('/triangles')  # All Triangle Route
-def triangles():
-    return render_template('triangles.html')
-
-
-@app.route('/triangle/<string:direction>/<int:size>')  # Individual Triangle Route
-def triangle(direction, size):
-    bits = []
-    if direction == "up_right" or direction == "down_right":
-        if direction == "up_right":
-            n = 1
-
-            for i in range(size):
-                bits.append(" " * (n - size) + "*" * n)
-                n += 1
-
-        elif direction == "down_right":
-            n = size
-
-            for i in range(size):
-                bits.append(" " * (n - size) + "*" * n)
-                n -= 1
-
-        return ('<br>'.join(bits))
-
-    elif direction == "up_pyramid" or direction == "down_pyramid":
-        if direction == "up_pyramid":
-            n = 1
-
-            for i in range(size):
-                bits.append("&nbsp" * (size - n) + "*" * (2 * n - 1))
-                n += 1
-
-        elif direction == "down_pyramid":
-            n = size
-
-            for i in range(size):
-                bits.append("&nbsp" * (size - n) + "*" * (2 * n - 1))
-                n -= 1
-
-        return ('<br>'.join(bits))
-
-    elif direction == "diamond":
-        for i in range(1, size + 1):
-            bits.append("&nbsp" * (size - i) + "*" * (2 * i - 1))
-        for i in range(size - 1, 0, -1):
-            bits.append("&nbsp" * (size - i) + "*" * (2 * i - 1))
-
-        return ('<br>'.join(bits))
-
-
-if __name__ == "__main__":  # Running the website
+# Running the website
+if __name__ == "__main__":
     app.run(debug=True)
