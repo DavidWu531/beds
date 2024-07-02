@@ -1,10 +1,13 @@
+<!DOCTYPE html>
+<html>
 {% extends 'layout.html' %}
 {% block content %}
 <body class="blanket_route">
 <b><p class="blanket">
-    This is a test to show the list of blankets currently in the database
+    This is a test to show the list of individual blankets currently in the database
     </p></b>
-<!--Obtain all blankets-->
+<!--Obtain individual blankets-->
 {{blanket[1]}} <img src="/static/images/{{blanket[5]}}">
 {% endblock %}
 </body>
+</html>
