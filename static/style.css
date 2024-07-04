@@ -166,11 +166,11 @@ footer {
   width: 100%;
 }
 
+/*Item Grid*/
 .grid_container {
   display: grid;
-  gap: 100px;
+  gap: 70px;
   grid-template-columns: auto auto auto;
-  background-color: #2196F3;
   padding: 10px;
 }
 
@@ -180,4 +180,5 @@ footer {
   padding: 20px;
   font-size: 30px;
   text-align: center;
+  overflow-wrap: normal;
 }

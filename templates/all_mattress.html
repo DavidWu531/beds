@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
-<head></head>
 {% extends 'layout.html' %}
 {% block content %}
+<body class="mattress_route">
+    <i><p class="mattress">
+        This is a test to show the list of mattresses currently in the database
+    </p></i>
 <div class="grid_container">
     <div class="grid_item">{{mattress[0][1]}}<br><img src="/static/images/{{mattress[0][-1]}}" width="200", height="200"></div>
     <div class="grid_item">{{mattress[1][1]}}<br><img src="/static/images/{{mattress[1][-1]}}" width="200", height="200"></div>
@@ -14,11 +17,6 @@
     <div class="grid_item">{{mattress[7][1]}}<br><img src="/static/images/{{mattress[7][-1]}}" width="200", height="200"></div>
     <div class="grid_item">{{mattress[8][1]}}<br><img src="/static/images/{{mattress[8][-1]}}" width="200", height="200"></div>
 </div>
-</head>
-<body class="mattress_route">
-<i><p class="mattress">
-    This is a test to show the list of mattresses currently in the database
-    </p></i>
 <!--Obtain all mattresses-->
 {% for individial_mattress in mattress %} {{individial_mattress[1]}} <br> {% endfor %} 
 {% endblock %}

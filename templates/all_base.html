@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
-<head>
 {% extends 'layout.html' %}
 {% block content %}
+<body class="bed_base_route">
+    <p class="base">
+        This is a test to show the list of bed bases currently in the database
+    </p>
 <div class="grid_container">
     <div class="grid_item">{{base[0][1]}}<br><img src="/static/images/{{base[0][-1]}}" width="200", height="200"></div>
     <div class="grid_item">{{base[1][1]}}<br><img src="/static/images/{{base[1][-1]}}" width="200", height="200"></div>
@@ -14,12 +17,7 @@
     <div class="grid_item">{{base[7][1]}}<br><img src="/static/images/{{base[7][-1]}}" width="200", height="200"></div>
     <div class="grid_item">{{base[8][1]}}<br><img src="/static/images/{{base[8][-1]}}" width="200", height="200"></div>
 </div>
-</head>
-<body class="bed_base_route">
-<p class="base">
-    This is a test to show the list of bed bases currently in the database
-    </p>
-<!--Obtain all bed bases-->
+    <!--Obtain all bed bases-->
 {% for individual_base in base %} {{individual_base[1]}} <br> {% endfor %} 
 {% endblock %}
 </body>
