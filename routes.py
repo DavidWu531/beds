@@ -9,7 +9,7 @@ def home_page():
     return render_template('home.html')
 
 
-# All Bed Base Sources: https://thebedshop.co.nz/collections/bed-bases
+# All Bed Base Sources: https://thebedshop.co.nz/collections/bed-bases | https://www.budgetbeds.co.nz/collections/bed-bases
 @app.route('/bed_base')  # All Bed Base Route
 def all_bed_base():
     conn = sqlite3.connect('beds.db')
