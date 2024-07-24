@@ -8,16 +8,8 @@
     </p>
 <div class="grid_container">
     {% for individual_base in base %}
-    <div class="grid_item"> {{individual_base[1]}}<br><img src="/static/images/{{individual_base[0][-2]}}" width="200", height="200"></div>
+    <div class="grid_item">{{individual_base[1]}}<br><img src="/static/images/{{individual_base[-2]}}" width="200", height="200"></div>
     {% endfor %}
-    <div class="grid_item">{{base[1][1]}}<br><img src="/static/images/{{base[1][-2]}}" width="200", height="200"></div>
-    <div class="grid_item">{{base[2][1]}}<br><img src="/static/images/{{base[2][-2]}}" width="200", height="200"></div>
-    <div class="grid_item">{{base[3][1]}}<br><img src="/static/images/{{base[3][-2]}}" width="200", height="200"></div>
-    <div class="grid_item">{{base[4][1]}}<br><img src="/static/images/{{base[4][-2]}}" width="200", height="200"></div>
-    <div class="grid_item">{{base[5][1]}}<br><img src="/static/images/{{base[5][-2]}}" width="200", height="200"></div>
-    <div class="grid_item">{{base[6][1]}}<br><img src="/static/images/{{base[6][-2]}}" width="200", height="200"></div>
-    <div class="grid_item">{{base[7][1]}}<br><img src="/static/images/{{base[7][-2]}}" width="200", height="200"></div>
-    <div class="grid_item">{{base[8][1]}}<br><img src="/static/images/{{base[8][-2]}}" width="200", height="200"></div>
 </div>
     <!--Obtain all bed bases-->
 {% endblock %}

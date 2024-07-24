@@ -7,15 +7,9 @@
         This is a test to show the list of blankets currently in the database
     </p></b>
 <div class="grid_container">
-    <div class="grid_item">{{blanket[0][1]}}<br><img src="/static/images/{{blanket[0][-1]}}" width="200", height="200"></div>
-    <div class="grid_item">{{blanket[1][1]}}<br><img src="/static/images/{{blanket[1][-1]}}" width="200", height="200"></div>
-    <div class="grid_item">{{blanket[2][1]}}<br><img src="/static/images/{{blanket[2][-1]}}" width="200", height="200"></div>
-    <div class="grid_item">{{blanket[3][1]}}<br><img src="/static/images/{{blanket[3][-1]}}" width="200", height="200"></div>
-    <div class="grid_item">{{blanket[4][1]}}<br><img src="/static/images/{{blanket[4][-1]}}" width="200", height="200"></div>
-    <div class="grid_item">{{blanket[5][1]}}<br><img src="/static/images/{{blanket[5][-1]}}" width="200", height="200"></div>
-    <div class="grid_item">{{blanket[6][1]}}<br><img src="/static/images/{{blanket[6][-1]}}" width="200", height="200"></div>
-    <div class="grid_item">{{blanket[7][1]}}<br><img src="/static/images/{{blanket[7][-1]}}" width="200", height="200"></div>
-    <div class="grid_item">{{blanket[8][1]}}<br><img src="/static/images/{{blanket[8][-1]}}" width="200", height="200"></div>
+    {% for individual_blanket in blanket %}
+    <div class="grid_item">{{individual_blanket[1]}}<br><img src="/static/images/{{individual_blanket[-1]}}" width="200", height="200"></div>
+    {% endfor %}
 </div>
 <!--Obtain all blankets-->
 {% for individual_blanket in blanket %} {{individual_blanket[1]}} <br> {% endfor %}
