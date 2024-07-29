@@ -8,7 +8,11 @@
     </p>
 <div class="grid_container">
     {% for individual_base in base %}
-    <div class="grid_item">{{individual_base[1]}}<br><img src="/static/images/{{individual_base[-2]}}" width="200", height="200"></div>
+    <div class="grid_item">{{individual_base[1]}}<br>
+        <a href="/bed_base/{{individual_base[0]}}">
+        <img src="/static/images/{{individual_base[-2]}}" width="200", height="200">
+        </a>
+    </div>
     {% endfor %}
 </div>
     <!--Obtain all bed bases-->
