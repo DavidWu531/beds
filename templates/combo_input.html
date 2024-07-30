@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+{% extends 'layout.html' %}
+{% block content %}
+<body class="combo_route">
+<p class="combo">
+    This is a test to show the list of individual combos currently in the database
+    </p>
+<!--Obtain combo id-->
+<div class="grid_container">
+    <div class="grid_item">
+        <h1 style="text-align: center;">What combo are you looking for?</h1><br>
+        <form id="get_combo_id">
+            <label for="cid" style="font-size: 26px;">Combo ID (Must be between 1 and 729 inclusive): </label>
+            <input type="number" id="cid" name="cid" required="true"><br><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</div>
+<script>
+    document.getElementById('get_combo_id').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var cid = document.getElementById('cid').value;
+        var routeName = 'combos';
+        var newUrl = '/' + routeName + '/' + cid; 
+
+        window.location.href = newUrl;
+    }); 
+</script>
+{% endblock %}
+</body>
+</html>

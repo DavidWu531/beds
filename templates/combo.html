@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+{% extends 'layout.html' %}
+{% block content %}
+<body class="combo_route">
+<p class="combo">
+    This is a test to show the list of individual combos currently in the database
+    </p>
+<!--Obtain individual combos-->
+<div class="container">
+    <div class="item">
+        <img src="/static/images/{{combo[6]}}" width="420" height="420">
+        <div class="item-info">
+            <p>{{combo[2]}}</p>
+        </div>
+    </div>
+    <div class="item">
+        <img src="/static/images/{{combo[13]}}" width="420" height="420">
+        <div class="item-info">
+            <p>{{combo[9]}}</p>
+        </div>
+    </div>
+    <div class="item">
+        <img src="/static/images/{{combo[20]}}" width="420" height="420">
+        <div class="item-info">
+            <p>{{combo[16]}}</p>
+        </div>
+    </div>
+</div>
+</div>
+<div>
+    <button style="float: left;" class="previous_combo">
+        <a href="/combos/{{combo[0]-1}}">Previous</a>
+    </button>
+    <button style="margin-left: 42.5%;" class="random_combo">
+        <a href="/combos/{{ range(1, 729) | random }}">Random</a>
+    </button>
+    <button style="float: right;" class="next_combo">
+        <a href="/combos/{{combo[0]+1}}">Next</a>
+    </button>
+</div>
+{% endblock %}
+</body>
+</html>

@@ -1,8 +1,15 @@
+<!DOCTYPE html>
+<html>
 {% extends 'layout.html' %}
-{% block title %}Page Not Found{% endblock %} 
-{% block body %} 
-  
-<h1>Oops! Looks like the page doesn't exist anymore</h1> 
-<a href="/"><p>Click Here</a>To go to the Home Page</p> 
-
-{% endblock %} 
+{% block content %}
+<body>
+<div style="text-align: center;">
+    <h1>Uh-oh...<br>404 - Page Not Found!</h1>
+    <h2>The page you were looking for doesn't exist</h2>
+    <button>
+        <a href="/" class="homebutton">Click here to go back home</a>
+    </button>
+</div>
+{% endblock %}
+</body>
+</html>

@@ -8,9 +8,11 @@ app = Flask(__name__)
 def home_page():
     return render_template('home.html')
 
+
 @app.errorhandler(404)
 def not_found(e):
-    return render_template('404.html')
+    return render_template('404.html'), 404
+
 
 """
 @app.route('/bed_base')  # All Bed Base Route
@@ -90,7 +92,10 @@ def routes(data, id):
         else:
             cur.execute('SELECT * FROM Base WHERE BaseID=?', (id,))
             base = cur.fetchone()
-            return render_template('individual_base.html', base=base)
+            if base is None:
+                return render_template('404.html'), 404
+            else:
+                return render_template('individual_base.html', base=base)
     elif data == "mattress":
         # All Mattress Sources: https://www.bedsrus.co.nz/collections/mattress-only | https://mattresswarehouse.co.nz/collections/mattresses
         mattress = None
@@ -101,9 +106,12 @@ def routes(data, id):
         else:
             cur.execute('SELECT * FROM Mattress WHERE MattressID=?', (id,))
             mattress = cur.fetchone()
-            return render_template('individual_mattress.html', mattress=mattress)
-    # All Blanket Sources: https://www.bedbathntable.co.nz/bed/bed-linen/blankets
+            if mattress is None:
+                return render_template('404.html'), 404
+            else:
+                return render_template('individual_mattress.html', mattress=mattress)
     elif data == "blanket":
+        # All Blanket Sources: https://www.bedbathntable.co.nz/bed/bed-linen/blankets
         blanket = None
         if id == 0:
             cur.execute('SELECT * FROM Blankets')
@@ -112,10 +120,37 @@ def routes(data, id):
         else:
             cur.execute('SELECT * FROM Blankets WHERE BlanketID=?', (id,))
             blanket = cur.fetchone()
-            return render_template('individual_blanket.html', blanket=blanket)
+            if blanket is None:
+                return render_template('404.html'), 404
+            else:
+                return render_template('individual_blanket.html', blanket=blanket)
     else:
-        return render_template('404.html')
-    
+        return render_template('404.html'), 404
+
+
+@app.route("/combos/<int:id>")
+def combos(id):
+    conn = sqlite3.connect('beds.db')
+    cur = conn.cursor()
+    combo = None
+    if id == 0:
+        return render_template('combo_input.html', combo=combo)
+    else:
+        cur.execute('SELECT BedCombos.RelationshipID,\
+                            Base.*, \
+                            Blankets.*, \
+                            Mattress.*\
+                    FROM BedCombos\
+                    JOIN Base ON BedCombos.BaseID = Base.BaseID\
+                    JOIN Blankets ON BedCombos.BlanketID = Blankets.BlanketID\
+                    JOIN Mattress ON BedCombos.MattressID = Mattress.MattressID\
+                    WHERE BedCombos.RelationshipID=?', (id,))
+        combo = cur.fetchone()
+        if combo is None:
+            return render_template('404.html'), 404
+        else:
+            return render_template('combo.html', combo=combo)
+
 
 # Running the website
 if __name__ == "__main__":
