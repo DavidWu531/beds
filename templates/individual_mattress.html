@@ -7,7 +7,20 @@
     This is a test to show the list of individual mattresses currently in the database
     </p>
 <!--Obtain individual mattresses-->
-{{mattress[1]}} <img src="/static/images/{{mattress[5]}}">
+<div class="grid_container">
+    <div class="grid_item">
+        <img src="/static/images/{{mattress[5]}}" width="329" height="214">
+        <p style="font-size: 32px;">{{mattress[1]}}</p>
+    </div>
+    <div class="grid_item">
+        <p style="font-size: 28px;">
+            Comfy Level: {{mattress[4]}}<br><br>
+            Available in these sizes: {{mattress[3]}}<br><br>
+            Made from: {{mattress[2]}}<br><br>
+            {{mattress[6]}}
+        </p>
+    </div>
+</div>
 {% endblock %}
 </body>
 </html>

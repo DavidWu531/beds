@@ -3,11 +3,23 @@
 {% extends 'layout.html' %}
 {% block content %}
 <body class="blanket_route">
-<b><p class="blanket">
-    This is a test to show the list of individual blankets currently in the database
-    </p></b>
+<p class="blanket">
+    </p>
 <!--Obtain individual blankets-->
-{{blanket[1]}} <img src="/static/images/{{blanket[5]}}">
+<div class="grid_container">
+    <div class="grid_item">
+        <img src="/static/images/{{blanket[5]}}" width="329" height="214">
+        <p style="font-size: 32px;">{{blanket[1]}}</p>
+    </div>
+    <div class="grid_item">
+        <p style="font-size: 28px;">
+            Available in these colors: {{blanket[4]}}<br><br>
+            Available in these sizes: {{blanket[3]}}<br><br>
+            Made from: {{blanket[2]}}<br><br>
+            {{blanket[6]}}
+        </p>
+    </div>
+</div>
 {% endblock %}
 </body>
 </html>
