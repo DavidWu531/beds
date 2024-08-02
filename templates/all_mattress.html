@@ -3,10 +3,13 @@
 {% extends 'layout.html' %}
 {% block content %}
 <body class="mattress_route">
-    <i><p class="mattress">
-        This is a test to show the list of mattresses currently in the database
-    </p></i>
+    <p class="mattress">
+        You are looking at the selective choices of mattresses from 2 sources. Information for each mattress are limited so it's best to visit their website
+    </p>
+    <button style="width: 49.75%; height: 80px; font-size: 40px;"><a href="https://www.bedsrus.co.nz/collections/mattress-only">Source 1</a></button>
+    <button style="width: 49.75%; height: 80px; font-size: 40px;"><a href="https://mattresswarehouse.co.nz/collections/mattresses">Source 2</a></button>
 <div class="grid_container">
+    <!--Obtain all mattresses-->
     {% for individual_mattress in mattress %}
     <div class="grid_item">{{individual_mattress[1]}}<br>
         <a href="/mattress/{{individual_mattress[0]}}">
@@ -15,8 +18,6 @@
     </div>
     {% endfor %}
 </div>
-<!--Obtain all mattresses-->
-{% for individial_mattress in mattress %} {{individial_mattress[1]}} <br> {% endfor %} 
 {% endblock %}
 </body>
 </html>

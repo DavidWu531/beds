@@ -3,10 +3,12 @@
 {% extends 'layout.html' %}
 {% block content %}
 <body class="blanket_route">
-    <b><p class="blanket">
-        This is a test to show the list of blankets currently in the database
-    </p></b>
+    <p class="blanket">
+        You are looking at the selective choices of blankets from 1 source. Information for each blanket are limited so it's best to visit their website
+    </p>
+    <button style="width: 99.5%; height: 80px; font-size: 40px;"><a href="https://www.bedbathntable.co.nz/bed/bed-linen/blankets">Source</a></button>
 <div class="grid_container">
+    <!--Obtain all blankets-->
     {% for individual_blanket in blanket %}
     <div class="grid_item">{{individual_blanket[1]}}<br>
         <a href="/blanket/{{individual_blanket[0]}}">
@@ -15,8 +17,6 @@
     </div>
     {% endfor %}
 </div>
-<!--Obtain all blankets-->
-{% for individual_blanket in blanket %} {{individual_blanket[1]}} <br> {% endfor %}
 {% endblock %}
 </body>
 </html>

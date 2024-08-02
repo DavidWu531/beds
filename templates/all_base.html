@@ -4,9 +4,12 @@
 {% block content %}
 <body class="bed_base_route">
     <p class="base">
-        This is a test to show the list of bed bases currently in the database
+        You are looking at the selective choices of bed bases from 2 sources. Information for each bed base are limited so it's best to visit their website
     </p>
+    <button style="width: 49.75%; height: 80px; font-size: 40px;"><a href="https://thebedshop.co.nz/collections/bed-bases">Source 1</a></button>
+    <button style="width: 49.75%; height: 80px; font-size: 40px;"><a href="https://www.thebedroomstore.co.nz/product-category/bedding-more/bed-bases/">Source 2</a></button>
 <div class="grid_container">
+    <!--Obtain all bed bases-->
     {% for individual_base in base %}
     <div class="grid_item">{{individual_base[1]}}<br>
         <a href="/bed_base/{{individual_base[0]}}">
@@ -15,7 +18,6 @@
     </div>
     {% endfor %}
 </div>
-    <!--Obtain all bed bases-->
 {% endblock %}
 </body>
 </html>

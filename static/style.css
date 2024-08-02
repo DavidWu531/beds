@@ -1,8 +1,20 @@
 /*Default appearance*/
 body {
   background-color: #a5b695;
+  display: flex;
+  margin-top: auto;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
+/*Footer style*/
+footer {
+  margin-top: auto;
+  text-align: center;
+  font-size: 20px;
+  background-color: black;
+  color: white;
+}
 /*Background Color for Blanket Route*/
 .blanket_route {
   background-color: #399e5a;
@@ -135,16 +147,6 @@ li a:hover {
   display: block;
 }
 
-/*Footer style*/
-footer {
-  text-align: center;
-  font-size: 20px;
-  background-color: black;
-  color: white;
-}
-
-/* Code copied from my Year 10 Digi Portfolio but will be altered */
-
 .container{
   display: flex; 
   flex-wrap: wrap; 
@@ -174,13 +176,6 @@ footer {
   grid-template-columns: auto auto auto;
   padding: 10px;
 }
-
-/*.grid_container_individual {
-  display: grid;
-  gap: 70px;
-  grid-template: 100px 100px;
-  padding: 10px;
-}*/
 
 .grid_item {
   background-color: rgba(255, 255, 255, 0.8);
