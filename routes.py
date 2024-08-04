@@ -1,5 +1,4 @@
-from flask import Flask, render_template, redirect, request, flash, session, \
-    get_flashed_messages
+from flask import Flask, render_template, redirect, request, flash, session
 import sqlite3
 
 app = Flask(__name__)
@@ -25,8 +24,8 @@ def get_combo_id():
 @app.route('/<string:action>', methods=['GET', 'POST'])
 def actions(action):
     if action == "login":
-        get_flashed_messages()
         if 'username' in session:
+            flash("You are already signed in")
             return redirect("/dashboard")
         else:
             if request.method == 'POST':
@@ -50,6 +49,7 @@ def actions(action):
 
     elif action == "register":
         if 'username' in session:
+            flash("You are already signed in")
             return redirect("/dashboard")
         else:
             if request.method == 'POST':
@@ -80,6 +80,9 @@ def actions(action):
         session.pop('username', None)
         flash('You have successfully logged out.')
         return redirect("/")
+    else:
+        # Data doesn't match above conditions so returns 404 error page
+        return render_template('404.html'), 404
 
 
 # All routes respective to its table except many-to-many relationship table

@@ -5,6 +5,7 @@ body {
   margin-top: auto;
   flex-direction: column;
   min-height: 100vh;
+  margin: 0;
 }
 
 /*Footer style*/
