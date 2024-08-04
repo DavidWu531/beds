@@ -1,7 +1,9 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, flash, session, \
+    get_flashed_messages
 import sqlite3
 
 app = Flask(__name__)
+app.secret_key = "iT's OvEr 9000!!"
 
 
 @app.route('/')  # Home Route
@@ -14,10 +16,70 @@ def not_found(e):
     return render_template('404.html'), 404
 
 
-@app.route('/submit', methods=['POST'])  # Gets ComboId from form
+@app.route('/cid_submit', methods=['POST'])  # Gets ComboId from form
 def get_combo_id():
     id = request.form.get('cid')
     return redirect("/combos/" + str(id))
+
+
+@app.route('/<string:action>', methods=['GET', 'POST'])
+def actions(action):
+    if action == "login":
+        get_flashed_messages()
+        if 'username' in session:
+            return redirect("/dashboard")
+        else:
+            if request.method == 'POST':
+                username = request.form['username']
+                password = request.form['password']
+
+                conn = sqlite3.connect('account.db')
+                cur = conn.cursor()
+                cur.execute('SELECT * FROM Details WHERE Username = ?', (username,))
+                user = cur.fetchone()
+                conn.close()
+
+                if user and password:
+                    session['username'] = username
+                    flash('You are now logged in')
+                    return redirect('/dashboard')
+                else:
+                    flash('Invalid username or password')
+
+            return render_template('login.html')
+
+    elif action == "register":
+        if 'username' in session:
+            return redirect("/dashboard")
+        else:
+            if request.method == 'POST':
+                username = request.form['username']
+                password = request.form['password']
+
+                try:
+                    conn = sqlite3.connect('account.db')
+                    cur = conn.cursor()
+                    cur.execute('INSERT INTO Details (Username, Password) VALUES (?, ?)', (username, password))
+                    conn.commit()
+                    conn.close()
+                    flash('User registered successfully! You can now log in.')
+                    return redirect('/login')
+                except sqlite3.IntegrityError:
+                    flash('Username already exists. Please choose a different one.')
+
+            return render_template('register.html')
+
+    elif action == "dashboard":
+        if 'username' in session:
+            return render_template('dashboard.html')
+        else:
+            flash('You need to log in to access the dashboard.')
+            return redirect("/login")
+
+    elif action == "logout":
+        session.pop('username', None)
+        flash('You have successfully logged out.')
+        return redirect("/")
 
 
 # All routes respective to its table except many-to-many relationship table
