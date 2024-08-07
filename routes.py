@@ -38,12 +38,13 @@ def actions(action):
                 user = cur.fetchone()
                 conn.close()
 
-                if user and password:
+                if user and password == user[2]:
                     session['username'] = username
                     flash('You are now logged in')
                     return redirect('/dashboard')
                 else:
                     flash('Invalid username or password')
+                    return redirect('/login')
 
             return render_template('login.html')
 
@@ -66,6 +67,7 @@ def actions(action):
                     return redirect('/login')
                 except sqlite3.IntegrityError:
                     flash('Username already exists. Please choose a different one.')
+                    return redirect('/register')
 
             return render_template('register.html')
 

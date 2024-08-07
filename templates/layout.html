@@ -1,14 +1,14 @@
 <!doctype html>
 <html>
 <head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/static/style.css">   
 <div class="navbar"> <!--Navigation Bar on the top-->
     <ul>
     <li><a class="active" href="/">Home</a></li>
     <div class="dropdown">
       <button class="dropbtn">
         <a href="/bed_base/0">Bed Bases</a>
-        <i class="fa fa-caret-down fa-2x"></i>
+        <i class="arrow down"></i>
       </button>
       <div class="dropdown-content" id="bed_base_dropdown"> <!--Hovering and Clickable Dropdown-->
         <a href="/bed_base/1">Thames Bed Base - Standard</a> <!--Options-->
@@ -26,7 +26,7 @@
     <div class="dropdown">
       <button class="dropbtn">
         <a href="/mattress/0">Mattresses</a>
-        <i class="fa fa-caret-down fa-2x"></i>
+        <i class="arrow down"></i>
       </button>
       <div class="dropdown-content" id="mattress_dropdown"> <!--Hovering and Clickable Dropdown-->
         <a href="/mattress/1">Zero Stowaway Single Tri-Fold</a> <!--Options-->
@@ -44,7 +44,7 @@
     <div class="dropdown">
       <button class="dropbtn">
         <a href="/blanket/0">Blankets</a>
-        <i class="fa fa-caret-down fa-2x"></i>
+        <i class="arrow down"></i>
       </button>
       <div class="dropdown-content" id="blanket_dropdown"> <!--Hovering and Clickable Dropdown-->
         <a href="/blanket/1">Luxton Blanket</a> <!--Options-->
@@ -61,25 +61,22 @@
     
     <div style="float: right;">
       <a href="/dashboard">
-        <img class="navbar_image" src="/static/images/White_Bed_29.png" width="70" height="70" style="display: inline-block;">
+        <img class="navbar_image" src="/static/images/White_Bed_29.png" width="35" height="35" style="display: inline-block;">
         <p style="font-size: 20px; color: azure; display: inline-block;">{{session['username']}}</p>
       </a>
     </div>
   </ul>
 </div>
-
-    <title>Bed World</title>
-    <link rel="stylesheet" href="/static/style.css"> <!--Get styles from style.css-->
   </head>
-  <body>
-    <main>
-      {% block content %}{% endblock %}
-    </main>
-    <footer><p style="font-size: 20px; color: lightblue; text-align: left;">Sources<br>
-      Bed Bases: https://thebedshop.co.nz/collections/bed-bases | https://www.thebedroomstore.co.nz/product-category/bedding-more/bed-bases/<br>
-      Mattresses: https://www.bedsrus.co.nz/collections/mattress-only | https://mattresswarehouse.co.nz/collections/mattresses<br>
-      Blankets: https://www.bedbathntable.co.nz/bed/bed-linen/blankets</p>
-    </footer>
-
-  </body>
+<body>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+  <footer>
+    <p style="font-size: 20px; color: lightblue; text-align: left;">Disclaimer<br>
+  The purpose of this website is for displaying selective information from other websites for academic achievements<br>
+  The creator of this website has no intentions for copyright-claiming products
+    </p>
+  </footer>
+</body>
 </html>
