@@ -9,13 +9,6 @@
 </head>
 <body>
     <h1>Dashboard</h1>
-    <h3>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          {{messages[-1]}}
-        {% endif %}
-      {% endwith %}
-    </h3>
     <p>Welcome, {{session['username']}}!</p>
     <p><a href="/logout">Logout</a></p>
 </body>
