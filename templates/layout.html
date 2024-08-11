@@ -1,12 +1,14 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <link rel="stylesheet" href="/static/style.css">   
 <div class="navbar"> <!--Navigation Bar on the top-->
     <ul>
-    <li><a class="active" href="/">Home</a></li>
-    <li class="dropdown">
-      <a href="/bed_base/0">Bed Bases</a>
+    <a class="active" href="/">Home</a>
+    <div class="dropdown">
+      <button class="dropbtn">
+        <a href="/bed_base/0">Bed Bases</a>
+      </button>
       <div class="dropdown-content" id="bed_base_dropdown"> <!--Hovering and Clickable Dropdown-->
         <a href="/bed_base/1">Thames Bed Base - Standard</a> <!--Options-->
         <a href="/bed_base/2">Thames Bed Base - 4 Drawer</a>
@@ -18,7 +20,7 @@
         <a href="/bed_base/8">Brighton Bed Base - Standard</a>
         <a href="/bed_base/9">Sleepwell NZ-made Bed Base</a>
       </div>
-    </li>
+    </div>
 
     <div class="dropdown">
       <button class="dropbtn">
@@ -53,9 +55,15 @@
         <a href="/blanket/9">Roman Check Blanket</a>
       </div>
     </div>
+
+    <div class="dropdown">
+      <button class="dropbtn">
+        <a href="/combos/0">Combos</a>
+      </button>
+    </div>
     
     <div style="float: right;">
-      <a href="/dashboard">
+      <a href="/account/dashboard">
         <img class="navbar_image" src="/static/images/White_Bed_29.png" width="35" height="35">
         <p style="font-size: 20px; color: azure; display: inline-block;">{{session['username']}}</p>
       </a>

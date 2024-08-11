@@ -22,12 +22,12 @@ def get_combo_id():
     return redirect("/combos/" + str(id))
 
 
-@app.route('/<string:action>', methods=['GET', 'POST'])
+@app.route('/account/<string:action>', methods=['GET', 'POST'])
 def actions(action):
     if action == "login":
         get_flashed_messages()
         if 'username' in session:
-            return redirect("/dashboard")
+            return redirect("/account/dashboard")
         else:
             if request.method == 'POST':
                 username = request.form['username']
@@ -42,16 +42,16 @@ def actions(action):
                 if user and password == user[2]:
                     session['username'] = username
                     flash('You are now logged in')
-                    return redirect('/dashboard')
+                    return redirect('/account/dashboard')
                 else:
                     flash('Invalid username or password')
-                    return redirect('/login')
+                    return redirect('/account/login')
 
             return render_template('login.html')
 
     elif action == "register":
         if 'username' in session:
-            return redirect("/dashboard")
+            return redirect("/account/dashboard")
         else:
             if request.method == 'POST':
                 username = request.form['username']
@@ -67,7 +67,7 @@ def actions(action):
                     return redirect('/login')
                 except sqlite3.IntegrityError:
                     flash('Username already exists. Please choose a different one.')
-                    return redirect('/register')
+                    return redirect('/account/register')
 
             return render_template('register.html')
 
@@ -76,12 +76,15 @@ def actions(action):
             return render_template('dashboard.html')
         else:
             flash('You need to log in to access the dashboard.')
-            return redirect("/login")
+            return redirect("/account/login")
 
     elif action == "logout":
         session.pop('username', None)
         flash('You have successfully logged out.')
         return redirect("/")
+
+    else:
+        return render_template('404.html'), 404
 
 
 # All routes respective to its table except many-to-many relationship table
