@@ -56,19 +56,27 @@ def actions(action):
             if request.method == 'POST':
                 username = request.form['username']
                 password = request.form['password']
+                confirm_password = request.form['confirm-password']
 
                 try:
                     conn = sqlite3.connect('account.db')
                     cur = conn.cursor()
-                    cur.execute('INSERT INTO Details (Username, Password) VALUES (?, ?)', (username, password))
+                    cur.execute('INSERT INTO Details (Username, Password, ConfirmPassword) VALUES (?, ?, ?)', (username, password, confirm_password))
                     conn.commit()
+                    if password == confirm_password:
+                        flash('User registered successfully! You can now log in.')
+                        return redirect('/account/login')
+                    else:
+                        cur.execute("DELETE FROM Details WHERE UserID=(SELECT MAX(UserID) FROM Details)")
+                        conn.commit()
+                        
+                        flash("Passwords don't match")
+                        return redirect('/account/register')
                     conn.close()
-                    flash('User registered successfully! You can now log in.')
-                    return redirect('/login')
                 except sqlite3.IntegrityError:
                     flash('Username already exists. Please choose a different one.')
                     return redirect('/account/register')
-
+                
             return render_template('register.html')
 
     elif action == "dashboard":
