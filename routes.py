@@ -69,14 +69,15 @@ def actions(action):
                     else:
                         cur.execute("DELETE FROM Details WHERE UserID=(SELECT MAX(UserID) FROM Details)")
                         conn.commit()
-                        
+                        conn.close()
+
                         flash("Passwords don't match")
                         return redirect('/account/register')
-                    conn.close()
+
                 except sqlite3.IntegrityError:
                     flash('Username already exists. Please choose a different one.')
                     return redirect('/account/register')
-                
+
             return render_template('register.html')
 
     elif action == "dashboard":

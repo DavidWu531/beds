@@ -40,12 +40,12 @@
 </div>
 <div>
     <button style="float: left;" class="previous_combo">
-        <a href="/combos/{{combo[0]-1}}">Previous</a>
+        <a style="text-decoration: none;" href="/combos/{{combo[0]-1}}">Previous</a>
     </button>
-    <button style="margin-left: 43.5%;" class="random_combo">
+    <button style="margin-left: 43.5%; text-decoration: none;" class="random_combo">
         <a href="/combos/{{ range(1, 729) | random }}">Random</a>
     </button>
-    <button style="float: right;" class="next_combo">
+    <button style="float: right; text-decoration: none;" class="next_combo">
         <a href="/combos/{{combo[0]+1}}">Next</a>
     </button>
 </div>

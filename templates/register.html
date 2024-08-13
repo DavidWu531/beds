@@ -22,14 +22,14 @@
                   {% endif %}
                 {% endwith %}
                 <br>
-                <input id="username" name="username" type="text" placeholder="Enter Your Username" class="textbox" maxlength="24"/></br></br>
-                <input id="password" name="password" type="password" placeholder="Enter Your Password" class="textbox"/></br></br>
-                <input id="confirm-password" name="confirm-password" type="password" placeholder="Confirm Your Password" class="textbox"/></br></br>
+                <input id="username" name="username" type="text" placeholder="Enter Your Username" class="textbox" maxlength="24" required/></br></br>
+                <input id="password" name="password" type="password" placeholder="Enter Your Password" class="textbox" required/></br></br>
+                <input id="confirm-password" name="confirm-password" type="password" placeholder="Confirm Your Password" class="textbox" required/></br></br>
                 <input type="checkbox" onclick="show_password()">Show Password</br></br></br>
                 <input type="submit" class="btn" value="Sign Up"></br><br>
             </form>
         </h2>
-        <p class="bottom">Already have an account?  <a class="bottom" href="/account/login"> Sign In here</a></p>
+        <p style="font-size: 30px;" class="bottom">Already have an account? <a class="bottom" href="/account/login"> Sign In here</a></p>
       </div>
     </div>
 <script>
