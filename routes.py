@@ -22,78 +22,94 @@ def get_combo_id():
     return redirect("/combos/" + str(id))
 
 
-@app.route('/account/<string:action>', methods=['GET', 'POST'])
-def actions(action):
-    if action == "login":
-        get_flashed_messages()
-        if 'username' in session:
-            return redirect("/account/dashboard")
-        else:
-            if request.method == 'POST':
-                username = request.form['username']
-                password = request.form['password']
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    get_flashed_messages()
+    if 'username' in session:
+        return redirect("/dashboard")
+    else:
+        if request.method == 'POST':
+            username = request.form['username']
+            password = request.form['password']
 
+            conn = sqlite3.connect('account.db')
+            cur = conn.cursor()
+            cur.execute('SELECT * FROM Details WHERE Username = ?', (username,))
+            user = cur.fetchone()
+            conn.close()
+
+            if user and password == user[2]:
+                session['username'] = username
+                flash('You are now logged in')
+                return redirect('/dashboard')
+            else:
+                flash('Invalid username or password')
+                return redirect('/login')
+
+        return render_template('login.html')
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if 'username' in session:
+        return redirect("/dashboard")
+    else:
+        if request.method == 'POST':
+            username = request.form['username']
+            password = request.form['password']
+            confirm_password = request.form['confirm-password']
+
+            try:
                 conn = sqlite3.connect('account.db')
                 cur = conn.cursor()
-                cur.execute('SELECT * FROM Details WHERE Username = ?', (username,))
-                user = cur.fetchone()
-                conn.close()
-
-                if user and password == user[2]:
-                    session['username'] = username
-                    flash('You are now logged in')
-                    return redirect('/account/dashboard')
+                cur.execute('INSERT INTO Details (Username, Password, ConfirmPassword) VALUES (?, ?, ?)', (username, password, confirm_password))
+                conn.commit()
+                if password == confirm_password:
+                    flash('User registered successfully! You can now log in.')
+                    return redirect('/login')
                 else:
-                    flash('Invalid username or password')
-                    return redirect('/account/login')
-
-            return render_template('login.html')
-
-    elif action == "register":
-        if 'username' in session:
-            return redirect("/account/dashboard")
-        else:
-            if request.method == 'POST':
-                username = request.form['username']
-                password = request.form['password']
-                confirm_password = request.form['confirm-password']
-
-                try:
-                    conn = sqlite3.connect('account.db')
-                    cur = conn.cursor()
-                    cur.execute('INSERT INTO Details (Username, Password, ConfirmPassword) VALUES (?, ?, ?)', (username, password, confirm_password))
+                    cur.execute("DELETE FROM Details WHERE UserID=(SELECT MAX(UserID) FROM Details)")
                     conn.commit()
-                    if password == confirm_password:
-                        flash('User registered successfully! You can now log in.')
-                        return redirect('/account/login')
-                    else:
-                        cur.execute("DELETE FROM Details WHERE UserID=(SELECT MAX(UserID) FROM Details)")
-                        conn.commit()
-                        conn.close()
+                    conn.close()
 
-                        flash("Passwords don't match")
-                        return redirect('/account/register')
+                    flash("Passwords don't match")
+                    return redirect('/register')
 
-                except sqlite3.IntegrityError:
-                    flash('Username already exists. Please choose a different one.')
-                    return redirect('/account/register')
+            except sqlite3.IntegrityError:
+                flash('Username already exists. Please choose a different one.')
+                return redirect('/register')
 
-            return render_template('register.html')
+        return render_template('register.html')
 
-    elif action == "dashboard":
-        if 'username' in session:
-            return render_template('dashboard.html')
-        else:
-            flash('You need to log in to access the dashboard.')
-            return redirect("/account/login")
 
-    elif action == "logout":
-        session.pop('username', None)
-        flash('You have successfully logged out.')
-        return redirect("/")
-
+@app.route('/dashboard')
+def dashboard():
+    if 'username' in session:
+        return render_template('dashboard.html')
     else:
-        return render_template('404.html'), 404
+        flash('You need to log in to access the dashboard.')
+        return redirect("/login")
+
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    flash('You have successfully logged out.')
+    return redirect("/")
+
+
+@app.route('/delete')
+def delete():
+    username = session['username']
+
+    conn = sqlite3.connect('account.db')
+    cur = conn.cursor()
+    cur.execute('DELETE FROM Details WHERE Username=?', (username,))
+    conn.commit()
+
+    session.pop('username', None)
+    flash("Account successfully deleted")
+    return redirect("/")
 
 
 # All routes respective to its table except many-to-many relationship table

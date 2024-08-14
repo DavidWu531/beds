@@ -5,7 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
-    <link rel="stylesheet" href="/static/style.css">              
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="script" href="/static/node.js">
 </head>
 <body></br></br></br></br></br>
     <div style="text-align: center;">
@@ -14,7 +15,7 @@
             <h1 class="word">Register</h1>
           </div></br></br></br>
         <h2 class="word">
-            <form action="/account/register" method="POST">
+            <form action="/register" method="POST">
               <div class="msg">
                 {% with messages = get_flashed_messages() %}
                   {% if messages %}
@@ -29,26 +30,26 @@
                 <input type="submit" class="btn" value="Sign Up"></br><br>
             </form>
         </h2>
-        <p style="font-size: 30px;" class="bottom">Already have an account? <a class="bottom" href="/account/login"> Sign In here</a></p>
+        <p style="font-size: 30px;" class="bottom">Already have an account? <a class="bottom" href="/login"> Sign In here</a></p>
       </div>
     </div>
-<script>
-  function show_password() {
-    var x = document.getElementById("password");
-    var y = document.getElementById("confirm-password");
-    if (x.type === "password") {
-    x.type = "text";
-  } else {
-    x.type = "password";
-  }
-
-    if (y.type === "password") {
-      y.type = "text";
-    } else {
-      y.type = "password"
-    }
-    }
-</script>
 </body>
+<script>
+function show_password() {
+  var x = document.getElementById("password");
+  var y = document.getElementById("confirm-password");
+  if (x.type === "password") {
+  x.type = "text";
+} else {
+  x.type = "password";
+}
+
+  if (y.type === "password") {
+    y.type = "text";
+  } else {
+    y.type = "password"
+  }
+  }
+</script>
 {% endblock %}
 </html>
