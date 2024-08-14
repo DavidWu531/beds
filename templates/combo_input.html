@@ -16,9 +16,9 @@
     <div class="grid_item">
         <h1 style="text-align: center;">What combo are you looking for?</h1><br>
         <form action="/cid_submit" id="get_combo_id" method="POST">
-            <label for="cid" style="font-size: 26px;">Combo ID (Must be between 1 and 729 inclusive)</label>
-            <input type="number" id="cid" name="cid" required="true"><br><br>
-            <input type="submit" value="Submit">
+            <label for="cid" style="font-size: 26px;">Enter a number between 1 and 729</label>
+            <input type="number" id="cid" name="cid" required="true" min="1" max="729"/><br><br>
+            <input type="submit" value="Submit" id="submit"/>
         </form>
         <button>
             <a href="/combos/{{ range(1, 729) | random }}" style="text-decoration: none;"><h2>Unsure? Click the button for a random combo</h2></a>

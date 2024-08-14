@@ -9,7 +9,7 @@
 </head>
 <body class="combo_route">
 <h1 class="combo">
-    Below is the combination of ID {{combo[0]}}
+    Below is combination {{combo[0]}}
 </h1>
 <!--Obtain individual combos-->
 <div class="container">
@@ -39,13 +39,13 @@
     </div>
 </div>
 <div>
-    <button style="float: left;" class="previous_combo">
-        <a style="text-decoration: none;" href="/combos/{{combo[0]-1}}">Previous</a>
+    <button class="previous_combo">
+        <a href="/combos/{{combo[0]-1}}">Previous</a>
     </button>
-    <button style="margin-left: 43.5%; text-decoration: none;" class="random_combo">
+    <button class="random_combo">
         <a href="/combos/{{ range(1, 729) | random }}">Random</a>
     </button>
-    <button style="float: right; text-decoration: none;" class="next_combo">
+    <button class="next_combo">
         <a href="/combos/{{combo[0]+1}}">Next</a>
     </button>
 </div>

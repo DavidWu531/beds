@@ -60,7 +60,9 @@ ul {
 }
 
 a {
-display: block;
+  text-decoration: none;
+  display: block;
+  color: #b71414;
 }
 
 li {
@@ -192,7 +194,31 @@ input {
   overflow-wrap: normal;
 }
 
-button #scroll-button {
-  text-decoration: none;
-  background-color: #776353;
+.previous_combo {
+  float: left;
+  width: 100px;
+  height: 50px;
+  font-size: 22px;
+}
+
+.random_combo {
+  margin-left: 75vh;
+  width: 100px;
+  height: 50px;
+  font-size: 22px;
+}
+
+.next_combo {
+  float: right;
+  width: 100px;
+  height: 50px;
+  font-size: 22px;
+}
+
+#submit {
+  cursor: pointer;
+  width: 200px;
+  height: 50px;
+  font-size: 16px;
+  text-align: center;
 }
