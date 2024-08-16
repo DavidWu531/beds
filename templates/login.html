@@ -5,7 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="/static/style.css">           
+    <link rel="stylesheet" href="/static/style.css">    
+    <link rel="script" href="/static/node.js"> 
 </head>
 <body></br></br></br></br></br>
   <div style="text-align: center;">
@@ -32,17 +33,6 @@
         <p style="font-size: 30px;" class="bottom">Don't have an account? <a class="bottom" href="/register">Sign Up here</a></p>
     </div>
   </div>
-<script>
-  function show_password() {
-    var x = document.getElementById("password");
-    if (x.type === "password") {
-    x.type = "text";
-  } else {
-    x.type = "password";
-  }
-}
-</script>
-
 </body>
 {% endblock %}
 </html>
