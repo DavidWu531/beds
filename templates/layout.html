@@ -4,7 +4,11 @@
   <link rel="stylesheet" href="/static/style.css">   
 <div class="navbar"> <!--Navigation Bar on the top-->
     <ul>
-    <a class="active" href="/">Home</a>
+      <div class="dropdown">
+        <button class="dropbtn">
+          <a class="active" href="/">Home</a>
+        </button>
+      </div>
     <div class="dropdown">
       <button class="dropbtn">
         <a href="/bed_base/0">Bed Bases</a>
@@ -64,8 +68,8 @@
     
     <div style="float: right;">
       <a href="/dashboard">
-        <img class="navbar_image" src="/static/images/White_Bed_29.png" width="35" height="35">
-        <p style="font-size: 20px; color: azure; display: inline-block;">{{session['username']}}</p>
+        <img class="navbar_image" src="/static/images/White_Bed_29.png" width="25" height="25">
+        <p id="layout-username">{{session['username']}}</p>
       </a>
     </div>
   </ul>

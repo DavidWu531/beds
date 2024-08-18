@@ -9,9 +9,17 @@
 </head>
 <body>
     <h1>Dashboard</h1>
-    <p>Welcome, {{session['username']}}!</p>
-    <p><a href="/logout">Logout</a> - Logout of this site</p>
-    <p><a href="/delete">Delete Account</a> - Delete your account, action irreversible</p>
+    <p>Welcome, {{session['username']}}!</p><br><br>
+    <h2>Session Termination</h2><hr>
+    <h3>Log you out of your account</h3>
+    <button class="dashboard" id="dashboard-logout">
+        <a href="/logout">Logout</a>
+    </button><br>
+    <h2 id="delete-account">Delete your account</h2>
+    <h3>This action is not reversible, think carefully before doing so</h3>
+    <button class="dashboard" id="dashboard-delete">
+        <a href="/delete">Delete Account</a>
+    </button>
 </body>
 {% endblock %}
 </html>
