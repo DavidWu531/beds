@@ -62,7 +62,6 @@ ul {
 a {
   text-decoration: none;
   display: block;
-  color: #b71414;
 }
 
 li {
@@ -235,4 +234,32 @@ input {
   font-size: 14px;
   color: azure; 
   display: inline-block;
+}
+
+#dashboard-logout {
+  background-color: red;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+}
+
+#dashboard-logout a {
+  color: white;
+}
+
+#dashboard-delete {
+  background-color: red;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+}
+
+#dashboard-delete a {
+  color: white;
 }

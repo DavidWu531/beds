@@ -69,21 +69,24 @@ def register():
             # Add data into database
             conn = sqlite3.connect('account.db')
             cur = conn.cursor()
-            cur.execute('INSERT INTO Details (Username, Password, \
-                        ConfirmPassword) VALUES (?, ?, ?)',
-                        (username, password, confirm_password))
-            conn.commit()
             unique_username = cur.execute('SELECT * FROM Details WHERE \
                                           Username=?', (username,))
+
             if unique_username == username:
                 # Checks whether username is unique
                 flash('Username already exists. Please choose a different one')
                 return redirect('/register')
+            else:
+                cur.execute('INSERT INTO Details (Username, Password, \
+                            ConfirmPassword) VALUES (?, ?, ?)',
+                            (username, password, confirm_password))
+                conn.commit()
+
             if password == confirm_password:
                 # Checks if both password and confirm password are the same
                 flash('User registered successfully! You can now log in.')
                 return redirect('/login')
-            if password != confirm_password:
+            else:
                 # Delete the commit if they're not the same
                 cur.execute("DELETE FROM Details WHERE UserID=(SELECT \
                             MAX(UserID) FROM Details)")
