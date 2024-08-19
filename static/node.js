@@ -1,15 +1,24 @@
-function show_password() {
-    var x = document.getElementById("password");
-    var y = document.getElementById("confirm-password");
-    if (x.type === "password") {
-    x.type = "text";
+function show_password_login() {
+    var password_type = document.getElementById("password");
+    if (password_type.type === "password") {
+    password_type.type = "text";
   } else {
-    x.type = "password";
+    password_type.type = "password";
+  }
+}
+
+function show_password_register() {
+    var password_type = document.getElementById("password");
+    var confirm_password_type = document.getElementById("confirm-password");
+    if (password_type.type === "password") {
+    password_type.type = "text";
+  } else {
+    password_type.type = "password";
   }
 
-    if (y.type === "password") {
-      y.type = "text";
-    } else {
-      y.type = "password"
-    }
-    }
+  if (confirm_password_type.type === "confirm-password") {
+    confirm_password_type.type = "text";
+  } else {
+    confirm_password_type.type = "confirm-password"
+  }
+}

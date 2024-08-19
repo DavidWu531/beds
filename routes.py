@@ -36,7 +36,8 @@ def login():
 
             conn = sqlite3.connect('account.db')
             cur = conn.cursor()
-            cur.execute('SELECT * FROM Details WHERE Username = ?', (username,))
+            cur.execute('SELECT * FROM Details WHERE\
+                         Username = ?', (username,))
             user = cur.fetchone()
             conn.close()
 
@@ -56,31 +57,40 @@ def login():
 def register():
     get_flashed_messages()
     if 'username' in session:
+        # Checks whether user is logged in or not
         return redirect("/dashboard")
     else:
         if request.method == 'POST':
+            # Get data entered from register form
             username = request.form['username']
             password = request.form['password']
             confirm_password = request.form['confirm-password']
 
-            try:
-                conn = sqlite3.connect('account.db')
-                cur = conn.cursor()
-                cur.execute('INSERT INTO Details (Username, Password, ConfirmPassword) VALUES (?, ?, ?)', (username, password, confirm_password))
+            # Add data into database
+            conn = sqlite3.connect('account.db')
+            cur = conn.cursor()
+            cur.execute('INSERT INTO Details (Username, Password, \
+                        ConfirmPassword) VALUES (?, ?, ?)',
+                        (username, password, confirm_password))
+            conn.commit()
+            unique_username = cur.execute('SELECT * FROM Details WHERE \
+                                          Username=?', (username,))
+            if unique_username == username:
+                # Checks whether username is unique
+                flash('Username already exists. Please choose a different one')
+                return redirect('/register')
+            if password == confirm_password:
+                # Checks if both password and confirm password are the same
+                flash('User registered successfully! You can now log in.')
+                return redirect('/login')
+            if password != confirm_password:
+                # Delete the commit if they're not the same
+                cur.execute("DELETE FROM Details WHERE UserID=(SELECT \
+                            MAX(UserID) FROM Details)")
                 conn.commit()
-                if password == confirm_password:
-                    flash('User registered successfully! You can now log in.')
-                    return redirect('/login')
-                else:
-                    cur.execute("DELETE FROM Details WHERE UserID=(SELECT MAX(UserID) FROM Details)")
-                    conn.commit()
-                    conn.close()
+                conn.close()
 
-                    flash("Passwords don't match")
-                    return redirect('/register')
-
-            except sqlite3.IntegrityError:
-                flash('Username already exists. Please choose a different one.')
+                flash("Passwords don't match")
                 return redirect('/register')
 
         return render_template('register.html')
@@ -177,7 +187,8 @@ def mattress(id):
             # Else returns available data
             return render_template('404.html'), 404
         else:
-            return render_template('individual_mattress.html', mattress=mattress)
+            return render_template('individual_mattress.\
+                                   html', mattress=mattress)
 
 
 @app.route('/blanket/', defaults={"id": None})
@@ -232,7 +243,8 @@ def combos(id):
                     FROM BedCombos\
                     JOIN Base ON BedCombos.BaseID = Base.BaseID\
                     JOIN Blankets ON BedCombos.BlanketID = Blankets.BlanketID\
-                    JOIN Mattress ON BedCombos.MattressID = Mattress.MattressID\
+                    JOIN Mattress ON BedCombos.MattressID = \
+                    Mattress.MattressID \
                     WHERE BedCombos.RelationshipID=?', (id,))
         combo = cur.fetchone()
         if combo is None:

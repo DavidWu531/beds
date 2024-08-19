@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>Register</title>
     <link rel="stylesheet" href="/static/style.css">
-    <link rel="script" href="/static/node.js">
+    <script src="/static/node.js"></script>
 </head>
 <body></br></br></br></br></br>
     <div style="text-align: center;">
@@ -26,7 +26,7 @@
                 <input id="username" name="username" type="text" placeholder="Enter Your Username" class="textbox" maxlength="24" required/></br></br>
                 <input id="password" name="password" type="password" placeholder="Enter Your Password" class="textbox" required/></br></br>
                 <input id="confirm-password" name="confirm-password" type="password" placeholder="Confirm Your Password" class="textbox" required/></br></br>
-                <input type="checkbox" onclick="show_password()">Show Password</br></br></br>
+                <input type="checkbox" onclick="show_password_register()">Show Password</br></br></br>
                 <input type="submit" class="btn" value="Sign Up"></br><br>
             </form>
         </h2>
@@ -34,22 +34,5 @@
       </div>
     </div>
 </body>
-<script>
-function show_password() {
-  var x = document.getElementById("password");
-  var y = document.getElementById("confirm-password");
-  if (x.type === "password") {
-  x.type = "text";
-} else {
-  x.type = "password";
-}
-
-  if (y.type === "password") {
-    y.type = "text";
-  } else {
-    y.type = "password"
-  }
-  }
-</script>
 {% endblock %}
 </html>
