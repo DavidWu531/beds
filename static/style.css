@@ -263,3 +263,7 @@ input {
 #dashboard-delete a {
   color: white;
 }
+
+#combo_grid {
+  align-items: center;
+}

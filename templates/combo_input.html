@@ -10,7 +10,7 @@
 <body class="combo_route">
 <!--Obtain combo id-->
 <div class="grid_container">
-    <div class="grid_item">
+    <div class="grid_item" id="combo_grid">
         <h1 style="text-align: center;">What combo are you looking for?</h1><br>
         <form action="/cid_submit" id="get_combo_id" method="POST">
             <label for="cid" style="font-size: 26px;">Enter a number between 1 and 729</label>
@@ -18,7 +18,7 @@
             <input type="submit" value="Submit" id="submit"/>
         </form>
         <button>
-            <a href="/combos/{{ range(1, 729) | random }}" style="text-decoration: none;"><h2>Unsure? Click the button for a random combo</h2></a>
+            <a href="/combos/{{ range(1, 729) | random }}"><h2>Unsure? Click the button for a random combo</h2></a>
         </button>
     </div>
 </div>

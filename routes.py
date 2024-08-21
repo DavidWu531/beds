@@ -1,11 +1,13 @@
 from flask import Flask, render_template, redirect, request, flash, session, \
     get_flashed_messages
 import sqlite3
-import bcrypt
+from flask_bcrypt import Bcrypt
 
 
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
 app.secret_key = "iT's OvEr 9000!!"
+hashed_password = None
 
 
 @app.route('/')  # Home Route
@@ -45,9 +47,9 @@ def login():
                          Username = ?', (username,))
             user = cur.fetchone()
             conn.close()
-
-            if user and password == user[2]:  # bcrypt.checkpw(password.encode('utf-8'), user[2]):
-                # Signs the user in
+            # Check if hashed password entered equals
+            # Hashed password in database, sign in if true
+            if user and bcrypt.check_password_hash(user[2], password):
                 session['username'] = username
                 flash('You are now logged in')
                 return redirect('/dashboard')
@@ -72,8 +74,9 @@ def register():
             password = request.form['password']
             confirm_password = request.form['confirm-password']
 
-            # hashed_password = bcrypt.hashpw(password.encode('utf-8'),
-            #                                 bcrypt.gensalt())
+            # Transforms password into fixed-size string of characters
+            hashed_password = bcrypt.generate_password_hash(
+                password).decode('utf-8')
             # Add data into database
             conn = sqlite3.connect('account.db')
             cur = conn.cursor()
@@ -82,7 +85,7 @@ def register():
                 # Checks whether username is unique
                 cur.execute('INSERT INTO Details (Username, Password)\
                             VALUES (?, ?)',
-                            (username, password))
+                            (username, hashed_password))
                 conn.commit()
             except sqlite3.IntegrityError:
                 # Handle error caused by unique constraint (no equal inputs)
