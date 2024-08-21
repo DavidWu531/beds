@@ -1,6 +1,8 @@
 from flask import Flask, render_template, redirect, request, flash, session, \
     get_flashed_messages
 import sqlite3
+import bcrypt
+
 
 app = Flask(__name__)
 app.secret_key = "iT's OvEr 9000!!"
@@ -28,12 +30,15 @@ def get_combo_id():
 def login():
     get_flashed_messages()
     if 'username' in session:
+        # Checks whether the user is logged in or not
         return redirect("/dashboard")
     else:
         if request.method == 'POST':
+            # Get data entered from login form
             username = request.form['username']
             password = request.form['password']
 
+            # Compare and verify data between form and database
             conn = sqlite3.connect('account.db')
             cur = conn.cursor()
             cur.execute('SELECT * FROM Details WHERE\
@@ -41,7 +46,8 @@ def login():
             user = cur.fetchone()
             conn.close()
 
-            if user and password == user[2]:
+            if user and password == user[2]:  # bcrypt.checkpw(password.encode('utf-8'), user[2]):
+                # Signs the user in
                 session['username'] = username
                 flash('You are now logged in')
                 return redirect('/dashboard')
@@ -66,35 +72,40 @@ def register():
             password = request.form['password']
             confirm_password = request.form['confirm-password']
 
+            # hashed_password = bcrypt.hashpw(password.encode('utf-8'),
+            #                                 bcrypt.gensalt())
             # Add data into database
             conn = sqlite3.connect('account.db')
             cur = conn.cursor()
-            unique_username = cur.execute('SELECT * FROM Details WHERE \
-                                          Username=?', (username,))
 
-            if unique_username == username:
+            try:
                 # Checks whether username is unique
+                cur.execute('INSERT INTO Details (Username, Password)\
+                            VALUES (?, ?)',
+                            (username, password))
+                conn.commit()
+            except sqlite3.IntegrityError:
+                # Handle error caused by unique constraint (no equal inputs)
                 flash('Username already exists. Please choose a different one')
                 return redirect('/register')
             else:
-                cur.execute('INSERT INTO Details (Username, Password, \
-                            ConfirmPassword) VALUES (?, ?, ?)',
-                            (username, password, confirm_password))
-                conn.commit()
+                # Passes arguments to password checking
+                if password == confirm_password:
+                    # Checks if both password and confirm password are the same
+                    # bytes = password.encode('utf-8')
+                    # salt = bcrypt.gensalt()
+                    # _ = bcrypt.hashpw(bytes, salt)
+                    flash('User registered successfully! You can now log in.')
+                    return redirect('/login')
+                else:
+                    # Delete the commit if they're not the same
+                    cur.execute("DELETE FROM Details WHERE UserID=(SELECT \
+                                MAX(UserID) FROM Details)")
+                    conn.commit()
+                    conn.close()
 
-            if password == confirm_password:
-                # Checks if both password and confirm password are the same
-                flash('User registered successfully! You can now log in.')
-                return redirect('/login')
-            else:
-                # Delete the commit if they're not the same
-                cur.execute("DELETE FROM Details WHERE UserID=(SELECT \
-                            MAX(UserID) FROM Details)")
-                conn.commit()
-                conn.close()
-
-                flash("Passwords don't match")
-                return redirect('/register')
+                    flash("Passwords don't match")
+                    return redirect('/register')
 
         return render_template('register.html')
 
