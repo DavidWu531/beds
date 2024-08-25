@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, request, flash, session, \
-    get_flashed_messages
+    get_flashed_messages  # pip install Flask
 import sqlite3
-from flask_bcrypt import Bcrypt
+from flask_bcrypt import Bcrypt  # pip install Flask-Bcrypt
 
 
 app = Flask(__name__)
@@ -95,9 +95,6 @@ def register():
                 # Passes arguments to password checking
                 if password == confirm_password:
                     # Checks if both password and confirm password are the same
-                    # bytes = password.encode('utf-8')
-                    # salt = bcrypt.gensalt()
-                    # _ = bcrypt.hashpw(bytes, salt)
                     flash('User registered successfully! You can now log in.')
                     return redirect('/login')
                 else:
@@ -204,8 +201,8 @@ def mattress(id):
             # Else returns available data
             return render_template('404.html'), 404
         else:
-            return render_template('individual_mattress.\
-                                   html', mattress=mattress)
+            return render_template('individual_mattress.html',
+                                   mattress=mattress)
 
 
 @app.route('/blanket/', defaults={"id": None})

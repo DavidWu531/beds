@@ -61,7 +61,7 @@ ul {
 
 a {
   text-decoration: none;
-  display: block;
+  display: inline-block;
 }
 
 li {
@@ -238,6 +238,7 @@ input {
 
 #dashboard-logout {
   background-color: red;
+  font-size: 20px;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -252,6 +253,7 @@ input {
 
 #dashboard-delete {
   background-color: red;
+  font-size: 20px;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -266,4 +268,14 @@ input {
 
 #combo_grid {
   align-items: center;
+}
+
+#item-image {
+  align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    background-color: #464f51;
+  }
 }
