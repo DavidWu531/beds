@@ -245,6 +245,7 @@ input {
   text-decoration: none;
   text-align: center;
   display: inline-block;
+  cursor: pointer;
 }
 
 #dashboard-logout a {
@@ -260,6 +261,7 @@ input {
   text-decoration: none;
   text-align: center;
   display: inline-block;
+  cursor: pointer;
 }
 
 #dashboard-delete a {

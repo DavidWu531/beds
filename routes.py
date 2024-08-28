@@ -6,7 +6,7 @@ from flask_bcrypt import Bcrypt  # pip install Flask-Bcrypt
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
-app.secret_key = "iT's OvEr 9000!!"
+app.secret_key = "iT's OvEr 9000!!".encode('utf8')
 hashed_password = None
 
 
@@ -33,6 +33,7 @@ def login():
     get_flashed_messages()
     if 'username' in session:
         # Checks whether the user is logged in or not
+        flash("You are already logged in")
         return redirect("/dashboard")
     else:
         if request.method == 'POST':
@@ -66,6 +67,7 @@ def register():
     get_flashed_messages()
     if 'username' in session:
         # Checks whether user is logged in or not
+        flash("You are already logged in")
         return redirect("/dashboard")
     else:
         if request.method == 'POST':
@@ -165,8 +167,12 @@ def bed_base(id):
         base = cur.fetchall()
         return render_template('all_base.html', base=base)
     else:
-        cur.execute('SELECT * FROM Base WHERE BaseID=?', (id,))
-        base = cur.fetchone()
+        try:
+            cur.execute('SELECT * FROM Base WHERE BaseID=?', (id,))
+        except OverflowError:
+            return redirect('/bed_base/0')
+        finally:
+            base = cur.fetchone()
         if base is None:
             # Returns 404 error page when nothing is found
             # Else returns available data
@@ -194,8 +200,12 @@ def mattress(id):
         mattress = cur.fetchall()
         return render_template('all_mattress.html', mattress=mattress)
     else:
-        cur.execute('SELECT * FROM Mattress WHERE MattressID=?', (id,))
-        mattress = cur.fetchone()
+        try:
+            cur.execute('SELECT * FROM Mattress WHERE MattressID=?', (id,))
+        except OverflowError:
+            return redirect('/mattress/0')
+        finally:
+            mattress = cur.fetchone()
         if mattress is None:
             # Returns 404 error page when nothing is found
             # Else returns available data
@@ -223,8 +233,12 @@ def routes(id):
         blanket = cur.fetchall()
         return render_template('all_blanket.html', blanket=blanket)
     else:
-        cur.execute('SELECT * FROM Blankets WHERE BlanketID=?', (id,))
-        blanket = cur.fetchone()
+        try:
+            cur.execute('SELECT * FROM Blankets WHERE BlanketID=?', (id,))
+        except OverflowError:
+            return redirect('/blanket/0')
+        finally:
+            blanket = cur.fetchone()
         if blanket is None:
             # Returns 404 error page when nothing is found
             # Else returns available data
@@ -250,17 +264,22 @@ def combos(id):
         return render_template('combo_input.html', combo=combo)
     else:
         # Get combo based on id
-        cur.execute('SELECT BedCombos.RelationshipID,\
-                            Base.*, \
-                            Blankets.*, \
-                            Mattress.*\
-                    FROM BedCombos\
-                    JOIN Base ON BedCombos.BaseID = Base.BaseID\
-                    JOIN Blankets ON BedCombos.BlanketID = Blankets.BlanketID\
-                    JOIN Mattress ON BedCombos.MattressID = \
-                    Mattress.MattressID \
-                    WHERE BedCombos.RelationshipID=?', (id,))
-        combo = cur.fetchone()
+        try:
+            cur.execute('SELECT BedCombos.RelationshipID,\
+                                Base.*, \
+                                Blankets.*, \
+                                Mattress.*\
+                        FROM BedCombos\
+                        JOIN Base ON BedCombos.BaseID = Base.BaseID\
+                        JOIN Blankets ON BedCombos.BlanketID = \
+                        Blankets.BlanketID\
+                        JOIN Mattress ON BedCombos.MattressID = \
+                        Mattress.MattressID \
+                        WHERE BedCombos.RelationshipID=?', (id,))
+        except OverflowError:
+            return redirect('/combos/0')
+        finally:
+            combo = cur.fetchone()
         if combo is None:
             # Returns 404 error page when nothing is found
             # Else returns available data
