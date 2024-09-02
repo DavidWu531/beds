@@ -16,9 +16,9 @@ function show_password_register() {
     password_type.type = "password";
   }
 
-  if (confirm_password_type.type === "confirm-password") {
+  if (confirm_password_type.type === "password") {
     confirm_password_type.type = "text";
   } else {
-    confirm_password_type.type = "confirm-password"
+    confirm_password_type.type = "password"
   }
 }

@@ -76,6 +76,19 @@ def register():
             password = request.form['password']
             confirm_password = request.form['confirm-password']
 
+            # Checks if username contains other characters besides
+            # letters and numbers
+            if not username.isalnum():
+                flash('Username can only contain alphanumerical characters')
+                return redirect('/register')
+
+            # Checks if password contains leading or
+            # trailing spaces since they're not recommended
+            if password.strip() != password:
+                flash('Passwords cannot contain leading or trailing \
+                whitespaces')
+                return redirect('/register')
+
             # Transforms password into fixed-size string of characters
             hashed_password = bcrypt.generate_password_hash(
                 password).decode('utf-8')
@@ -170,7 +183,7 @@ def bed_base(id):
         try:
             cur.execute('SELECT * FROM Base WHERE BaseID=?', (id,))
         except OverflowError:
-            return redirect('/bed_base/0')
+            return render_template('404.html'), 404
         finally:
             base = cur.fetchone()
         if base is None:
@@ -203,7 +216,7 @@ def mattress(id):
         try:
             cur.execute('SELECT * FROM Mattress WHERE MattressID=?', (id,))
         except OverflowError:
-            return redirect('/mattress/0')
+            return render_template('404.html'), 404
         finally:
             mattress = cur.fetchone()
         if mattress is None:
@@ -236,7 +249,7 @@ def routes(id):
         try:
             cur.execute('SELECT * FROM Blankets WHERE BlanketID=?', (id,))
         except OverflowError:
-            return redirect('/blanket/0')
+            return render_template('404.html'), 404
         finally:
             blanket = cur.fetchone()
         if blanket is None:
@@ -277,7 +290,7 @@ def combos(id):
                         Mattress.MattressID \
                         WHERE BedCombos.RelationshipID=?', (id,))
         except OverflowError:
-            return redirect('/combos/0')
+            return render_template('404.html'), 404
         finally:
             combo = cur.fetchone()
         if combo is None:
