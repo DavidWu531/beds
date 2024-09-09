@@ -17,9 +17,11 @@
             <input type="number" id="cid" name="cid" required="true" min="1" max="729"/><br><br>
             <input type="submit" value="Submit" id="submit"/>
         </form>
-        <button>
-            <a href="/combos/{{ range(1, 729) | random }}"><h2>Unsure? Click the button for a random combo</h2></a>
-        </button>
+        <a href="/combos/{{ range(1, 729) | random }}">
+            <button id="random_submit">
+                <h3>Unsure? Click the button for a random combo</h3>
+            </button>
+        </a>
     </div>
 </div>
 {% endblock %}

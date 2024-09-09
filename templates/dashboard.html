@@ -10,6 +10,11 @@
 <body>
     <h1>Dashboard</h1>
     <p>Welcome, {{session['username']}}!</p><br><br>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <h3>{{messages[-1]}}</h3>
+        {% endif %}
+    {% endwith %}
     <h2>Session Termination</h2><hr>
 
     <h2 id="logout-account">Log out</h2>

@@ -11,8 +11,12 @@
     <p class="mattress">
         You are looking at the selective choices of mattresses from 2 sources. Information for each mattress are limited so it's best to visit their website
     </p>
-    <button style="width: 49.75%; height: 80px; font-size: 40px;"><a href="https://www.bedsrus.co.nz/collections/mattress-only">Source 1</a></button>
-    <button style="width: 49.75%; height: 80px; font-size: 40px;"><a href="https://mattresswarehouse.co.nz/collections/mattresses">Source 2</a></button>
+    <a href="https://www.bedsrus.co.nz/collections/mattress-only">
+        <button id="source">Source 1: BedsRus</button>
+    </a>
+    <a href="https://mattresswarehouse.co.nz/collections/mattresses">
+        <button id="source">Source 2: Mattress Warehouse</button>
+    </a>
 <div class="grid_container">
     <!--Obtain all mattresses-->
     {% for individual_mattress in mattress %}

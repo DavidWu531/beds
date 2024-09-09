@@ -11,8 +11,12 @@
     <p class="base">
         You are looking at the selective choices of bed bases from 2 sources. Information for each bed base are limited so it's best to visit their website
     </p>
-    <button style="width: 49.75%; height: 80px; font-size: 40px;"><a href="https://thebedshop.co.nz/collections/bed-bases">Source 1</a></button>
-    <button style="width: 49.75%; height: 80px; font-size: 40px;"><a href="https://www.thebedroomstore.co.nz/product-category/bedding-more/bed-bases/">Source 2</a></button>
+    <a href="https://thebedshop.co.nz/collections/bed-bases">
+        <button id="source">Source 1: The Bed Shop</button>
+    </a>
+    <a href="https://www.thebedroomstore.co.nz/product-category/bedding-more/bed-bases/"></a>
+        <button id="source">Source 2: The Bedroom Store</button>
+    </a>
 <div class="grid_container">
     <!--Obtain all bed bases-->
     {% for individual_base in base %}

@@ -182,7 +182,10 @@ input {
   gap: 70px;
   grid-template-columns: auto auto auto;
   padding: 10px;
+  justify-content: center;
+  align-items: center;
 }
+
 
 .grid_item {
   background-color: rgba(255, 255, 255, 0.8);
@@ -215,6 +218,7 @@ input {
 }
 
 #submit {
+  background-color: green;
   cursor: pointer;
   width: 200px;
   height: 50px;
@@ -280,4 +284,56 @@ input {
   body {
     background-color: #464f51;
   }
+}
+
+#random_submit {
+  background-color: rgb(70, 214, 135);
+  cursor: pointer;
+  width: 650px;
+  height: 50px;
+  font-size: 16px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#source {
+  display: block;
+  width: 1900px;
+  height: 50px;
+  background-color: #007BFF; 
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 50px;
+  transition: background-color 0.3s ease;
+}
+
+#single {
+  display: block;
+  width: 1900px;
+  height: 50px;
+  background-color: #007BFF; 
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 50px;
+  transition: background-color 0.3s ease;
+}
+
+#account_dropdown {
+  right: 0;
+}
+
+#account_item {
+  text-align: right;
+}
+
+.homebutton {
+  background-color: red;
+  color: white;
+  cursor: pointer;
 }

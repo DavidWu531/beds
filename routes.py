@@ -2,11 +2,12 @@ from flask import Flask, render_template, redirect, request, flash, session, \
     get_flashed_messages  # pip install Flask
 import sqlite3
 from flask_bcrypt import Bcrypt  # pip install Flask-Bcrypt
+import os
 
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
-app.secret_key = "iT's OvEr 9000!!".encode('utf8')
+app.secret_key = os.urandom(12)  # Generates 12 random characters for sessions
 hashed_password = None
 
 
@@ -18,6 +19,11 @@ def home_page():
 @app.errorhandler(404)  # 404 Error Page Route
 def not_found(e):
     return render_template('404.html'), 404
+
+
+@app.errorhandler(505)
+def server_error(e):
+    return "It's not you... it's us. Please try again later"
 
 
 # Get combo id submitted by user
@@ -42,7 +48,7 @@ def login():
             password = request.form['password']
 
             # Compare and verify data between form and database
-            conn = sqlite3.connect('account.db')
+            conn = sqlite3.connect('beds.db')
             cur = conn.cursor()
             cur.execute('SELECT * FROM Details WHERE\
                          Username = ?', (username,))
@@ -79,7 +85,7 @@ def register():
             # Checks if username contains other characters besides
             # letters and numbers
             if not username.isalnum():
-                flash('Username can only contain alphanumerical characters')
+                flash('Username can only contain alphanumeric characters')
                 return redirect('/register')
 
             # Checks if password contains leading or
@@ -93,7 +99,7 @@ def register():
             hashed_password = bcrypt.generate_password_hash(
                 password).decode('utf-8')
             # Add data into database
-            conn = sqlite3.connect('account.db')
+            conn = sqlite3.connect('beds.db')
             cur = conn.cursor()
 
             try:
@@ -111,7 +117,8 @@ def register():
                 if password == confirm_password:
                     # Checks if both password and confirm password are the same
                     flash('User registered successfully! You can now log in.')
-                    return redirect('/login')
+                    session['username'] = username
+                    return redirect('/dashboard')
                 else:
                     # Delete the commit if they're not the same
                     cur.execute("DELETE FROM Details WHERE UserID=(SELECT \
@@ -142,7 +149,7 @@ def logout():
     get_flashed_messages()
     session.pop('username', None)
     flash('You have successfully logged out.')
-    return redirect("/")
+    return redirect("/login")
 
 
 # Account delete route
@@ -151,14 +158,16 @@ def delete():
     get_flashed_messages()
     username = session['username']
 
-    conn = sqlite3.connect('account.db')
+    conn = sqlite3.connect('beds.db')
     cur = conn.cursor()
+    # Look for the current username in the database and deletes it
     cur.execute('DELETE FROM Details WHERE Username=?', (username,))
     conn.commit()
 
     session.pop('username', None)
+    # Signs the user out after the account is deleted
     flash("Account successfully deleted")
-    return redirect("/")
+    return redirect("/login")
 
 
 # Bed Base Route
