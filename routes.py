@@ -21,9 +21,14 @@ def not_found(e):
     return render_template('404.html'), 404
 
 
-@app.errorhandler(505)
-def server_error(e):
-    return "It's not you... it's us. Please try again later"
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template("500.html"), 500
+
+
+@app.route('/force_500/')
+def deliberate_error():
+    raise Exception("You have forced the internal server error")
 
 
 # Get combo id submitted by user

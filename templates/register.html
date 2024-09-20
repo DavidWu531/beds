@@ -3,10 +3,11 @@
 {% extends 'layout.html' %}
 {% block content %}
 <head>
-    <meta charset="UTF-8">
-    <title>Register</title>
-    <link rel="stylesheet" href="/static/style.css">
-    <script src="/static/node.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/node.js"></script>
 </head>
 <body></br></br></br></br></br>
     <div style="text-align: center;">
@@ -24,10 +25,18 @@
                 {% endwith %}
                 <br>
                 <input id="username" name="username" type="text" placeholder="Enter Your Username" minlength="6" maxlength="30" class="textbox" required/></br></br>
-                <input id="password" name="password" type="password" placeholder="Enter Your Password" minlength="8" class="textbox" required/></br></br>
-                <input id="confirm-password" name="confirm-password" type="password" placeholder="Confirm Your Password" minlength="8" class="textbox" required/></br></br>
-                <input type="checkbox" onclick="show_password_register()">Show Password</br></br></br>
-                <input type="submit" class="btn" value="Sign Up"></br><br>
+                
+                <div>
+                  <input id="password" name="password" type="password" placeholder="Enter Your Password" minlength="8" class="textbox" required/></br></br>
+                  <i class="fas fa-eye eye-icon" id="password-eye-icon" onclick="show_password_password()"></i>
+                </div>
+                
+                <div>
+                  <input id="confirm-password" name="confirm-password" type="password" placeholder="Confirm Your Password" minlength="8" class="textbox" required/></br></br>
+                  <i class="fas fa-eye eye-icon" id="confirm-eye-icon" onclick="show_password_confirm()"></i>
+                </div>
+                
+                  <input type="submit" class="btn" value="Sign Up"></br><br>
             </form>
         </h2>
         <p style="font-size: 30px;" class="bottom">Already have an account? <a class="bottom" href="/login"> Sign In here</a></p>

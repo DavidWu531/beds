@@ -337,3 +337,27 @@ input {
   color: white;
   cursor: pointer;
 }
+
+#password-eye-icon {
+  position: absolute;
+  right: 620px;
+  top: 465px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+#password-login-eye-icon {
+  position: absolute;
+  right: 620px;
+  top: 467px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+#confirm-eye-icon {
+  position: absolute;
+  right: 620px;
+  top: 550px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
