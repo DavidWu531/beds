@@ -23,14 +23,18 @@
                   {{messages[-1]}}
                 {% endif %}
               {% endwith %}
-              <br>
+            </div>
+            <br></h2>
               <input id="username" name="username" type="text" placeholder="Enter Your Username" class="textbox" required></br></br>
-              <input id="password" name="password" type="password" placeholder="Enter Your Password" class="textbox" required></br></br>
-              <i class="fas fa-eye eye-icon" id="password-login-eye-icon" onclick="show_password()"></i>
-              <input type="submit" class="btn" value="Sign In"></br></br>
+                
+              <div style="position: relative;">
+                <input id="password" name="password" type="password" placeholder="Enter Your Password" class="textbox" required></br></br>
+                <i class="fas fa-eye eye-icon" id="password-login-eye-icon" onclick="show_password()"></i>
+              </div>
+
+              <input type="submit" class="btn" id="confirm-details" value="Sign In"></br></br>
           </form>
       </h2>
-      
         <p style="font-size: 30px;" class="bottom">Don't have an account? <a class="bottom" href="/register">Sign Up here</a></p>
     </div>
   </div>

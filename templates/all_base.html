@@ -12,17 +12,17 @@
         You are looking at the selective choices of bed bases from 2 sources. Information for each bed base are limited so it's best to visit their website
     </p>
     <a href="https://thebedshop.co.nz/collections/bed-bases">
-        <button id="source">Source 1: The Bed Shop</button>
+        <button class="source">Source 1: The Bed Shop</button>
     </a>
-    <a href="https://www.thebedroomstore.co.nz/product-category/bedding-more/bed-bases/"></a>
-        <button id="source">Source 2: The Bedroom Store</button>
+    <a href="https://www.thebedroomstore.co.nz/product-category/bedding-more/bed-bases/">
+        <button class="source">Source 2: The Bedroom Store</button>
     </a>
 <div class="grid_container">
     <!--Obtain all bed bases-->
     {% for individual_base in base %}
     <div class="grid_item">{{individual_base[1]}}<br>
         <a href="/bed_base/{{individual_base[0]}}">
-        <img src="/static/images/{{individual_base[-2]}}" width="200", height="200">
+            <img src="/static/images/{{individual_base[-2]}}" width="200", height="200">
         </a>
     </div>
     {% endfor %}

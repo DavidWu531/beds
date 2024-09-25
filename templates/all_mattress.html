@@ -12,17 +12,17 @@
         You are looking at the selective choices of mattresses from 2 sources. Information for each mattress are limited so it's best to visit their website
     </p>
     <a href="https://www.bedsrus.co.nz/collections/mattress-only">
-        <button id="source">Source 1: BedsRus</button>
+        <button class="source">Source 1: BedsRus</button>
     </a>
     <a href="https://mattresswarehouse.co.nz/collections/mattresses">
-        <button id="source">Source 2: Mattress Warehouse</button>
+        <button class="source">Source 2: Mattress Warehouse</button>
     </a>
 <div class="grid_container">
     <!--Obtain all mattresses-->
     {% for individual_mattress in mattress %}
     <div class="grid_item">{{individual_mattress[1]}}<br>
         <a href="/mattress/{{individual_mattress[0]}}">
-        <img src="/static/images/{{individual_mattress[-2]}}" width="200", height="200">
+            <img src="/static/images/{{individual_mattress[-2]}}" width="200", height="200">
         </a>
     </div>
     {% endfor %}

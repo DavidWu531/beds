@@ -21,14 +21,36 @@ def not_found(e):
     return render_template('404.html'), 404
 
 
-@app.errorhandler(500)
+@app.errorhandler(500)  # 500 Error Page Route
 def internal_server_error(e):
     return render_template("500.html"), 500
 
 
-@app.route('/force_500/')
+@app.route('/force_500/')  # Force 500 Error Page
 def deliberate_error():
     raise Exception("You have forced the internal server error")
+
+
+def execute_query(query, params=(), fetchone=False, fetchall=False,
+                  commit=False):
+    conn = sqlite3.connect('beds.db')
+    cur = conn.cursor()
+    try:
+        cur.execute(query, params)
+        if commit:
+            conn.commit()
+        if fetchone:
+            result = cur.fetchone()
+        elif fetchall:
+            result = cur.fetchall()
+        else:
+            result = None
+    except sqlite3.Error as e:
+        print(f"An error occurred: {e}")
+        result = None
+    finally:
+        conn.close()
+    return result
 
 
 # Get combo id submitted by user
@@ -53,12 +75,8 @@ def login():
             password = request.form['password']
 
             # Compare and verify data between form and database
-            conn = sqlite3.connect('beds.db')
-            cur = conn.cursor()
-            cur.execute('SELECT * FROM Details WHERE\
-                         Username = ?', (username,))
-            user = cur.fetchone()
-            conn.close()
+            user = execute_query('SELECT * FROM Details WHERE\
+                         Username = ?', (username,), fetchone=True)
             # Check if hashed password entered equals
             # Hashed password in database, sign in if true
             if user and bcrypt.check_password_hash(user[2], password):
@@ -89,15 +107,14 @@ def register():
 
             # Checks if username contains other characters besides
             # letters and numbers
-            if not username.isalnum():
+            if not (username.isalnum() and username.isascii()):
                 flash('Username can only contain alphanumeric characters')
                 return redirect('/register')
 
-            # Checks if password contains leading or
-            # trailing spaces since they're not recommended
-            if password.strip() != password:
-                flash('Passwords cannot contain leading or trailing \
-                whitespaces')
+            # Checks if password contains spaces since they're not recommended
+            if (password.strip() != password) or (username.strip() !=
+                                                  username):
+                flash('Usernames and passwords cannot contain whitespaces')
                 return redirect('/register')
 
             # Transforms password into fixed-size string of characters
@@ -121,7 +138,7 @@ def register():
                 # Passes arguments to password checking
                 if password == confirm_password:
                     # Checks if both password and confirm password are the same
-                    flash('User registered successfully! You can now log in.')
+                    flash('User registered successfully!')
                     session['username'] = username
                     return redirect('/dashboard')
                 else:
@@ -152,8 +169,9 @@ def dashboard():
 @app.route('/logout')
 def logout():
     get_flashed_messages()
-    session.pop('username', None)
-    flash('You have successfully logged out.')
+    if 'username' in session:
+        session.pop('username', None)
+        flash('You have successfully logged out.')
     return redirect("/login")
 
 
@@ -161,17 +179,21 @@ def logout():
 @app.route('/delete')
 def delete():
     get_flashed_messages()
-    username = session['username']
+    if 'username' in session:
+        username = session['username']
 
-    conn = sqlite3.connect('beds.db')
-    cur = conn.cursor()
-    # Look for the current username in the database and deletes it
-    cur.execute('DELETE FROM Details WHERE Username=?', (username,))
-    conn.commit()
-
-    session.pop('username', None)
-    # Signs the user out after the account is deleted
-    flash("Account successfully deleted")
+        conn = sqlite3.connect('beds.db')
+        cur = conn.cursor()
+        # Look for the current username in the database and deletes it
+        try:
+            cur.execute('DELETE FROM Details WHERE Username=?', (username,))
+            conn.commit()
+        except TypeError:
+            return render_template("404.html"), 404
+        else:
+            session.pop('username', None)
+        # Signs the user out after the account is deleted
+            flash("Account successfully deleted")
     return redirect("/login")
 
 
@@ -198,7 +220,7 @@ def bed_base(id):
             cur.execute('SELECT * FROM Base WHERE BaseID=?', (id,))
         except OverflowError:
             return render_template('404.html'), 404
-        finally:
+        else:
             base = cur.fetchone()
         if base is None:
             # Returns 404 error page when nothing is found
@@ -231,7 +253,7 @@ def mattress(id):
             cur.execute('SELECT * FROM Mattress WHERE MattressID=?', (id,))
         except OverflowError:
             return render_template('404.html'), 404
-        finally:
+        else:
             mattress = cur.fetchone()
         if mattress is None:
             # Returns 404 error page when nothing is found
@@ -264,7 +286,7 @@ def routes(id):
             cur.execute('SELECT * FROM Blankets WHERE BlanketID=?', (id,))
         except OverflowError:
             return render_template('404.html'), 404
-        finally:
+        else:
             blanket = cur.fetchone()
         if blanket is None:
             # Returns 404 error page when nothing is found
@@ -305,7 +327,7 @@ def combos(id):
                         WHERE BedCombos.RelationshipID=?', (id,))
         except OverflowError:
             return render_template('404.html'), 404
-        finally:
+        else:
             combo = cur.fetchone()
         if combo is None:
             # Returns 404 error page when nothing is found

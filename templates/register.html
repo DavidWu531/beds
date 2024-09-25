@@ -23,20 +23,20 @@
                     {{messages[-1]}}
                   {% endif %}
                 {% endwith %}
-                <br>
+              <br></h2>
                 <input id="username" name="username" type="text" placeholder="Enter Your Username" minlength="6" maxlength="30" class="textbox" required/></br></br>
                 
-                <div>
+                <div style="position: relative;">
                   <input id="password" name="password" type="password" placeholder="Enter Your Password" minlength="8" class="textbox" required/></br></br>
                   <i class="fas fa-eye eye-icon" id="password-eye-icon" onclick="show_password_password()"></i>
                 </div>
                 
-                <div>
+                <div style="position: relative;">
                   <input id="confirm-password" name="confirm-password" type="password" placeholder="Confirm Your Password" minlength="8" class="textbox" required/></br></br>
                   <i class="fas fa-eye eye-icon" id="confirm-eye-icon" onclick="show_password_confirm()"></i>
                 </div>
                 
-                  <input type="submit" class="btn" value="Sign Up"></br><br>
+                <input type="submit" class="btn" id="confirm-details" value="Sign Up"></br><br>
             </form>
         </h2>
         <p style="font-size: 30px;" class="bottom">Already have an account? <a class="bottom" href="/login"> Sign In here</a></p>
