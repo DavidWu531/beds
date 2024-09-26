@@ -1,6 +1,6 @@
-/*Default appearance*/
+/* Base layout and body styles */
 body {
-  background-color: #a5b695;
+  background-color: #cbcba3;
   display: flex;
   margin-top: auto;
   flex-direction: column;
@@ -8,7 +8,7 @@ body {
   margin: 0;
 }
 
-/*Footer style*/
+/* Footer style */
 footer {
   margin-top: auto;
   text-align: center;
@@ -17,40 +17,31 @@ footer {
   color: white;
 }
 
-/*Background Color for Blanket Route*/
-.blanket_route {
-  background-color: #399e5a;
+/* Background Color for Data Routes */
+.blanket_route { background-color: #399e5a; }
+.bed_base_route { background-color: #464f51; }
+.mattress_route { background-color: #c3a995; }
+
+/* Text styles */
+p, b {
+  color: black;
+  font-size: 42px;
 }
 
-/*Background Color for Bed Base Route*/
-.bed_base_route {
-  background-color: #464f51;
-}
-
-/*Background Color for Mattress Route*/
-.mattress_route {
-  background-color: #c3a995;
-}
-
-/*Paragraph Class*/
 p {
-  color: black;
-  font-family: "Roboto", sans-serif;
-  font-size: 42px;
+  font-family: "Roboto", sans-serif; 
 }
 
-/*Bold Class*/
 b {
-  color: black;
-  font-family: "Times New Roman", serif;
-  font-size: 42px;
+  font-family: "Montserrat", sans-serif;
 }
 
-/*Heading 1*/
+/*Heading style*/
 h1 {
   font-family: "Lato", sans-serif;
 }
 
+/* Unordered list styling for navbar */
 ul {
   list-style-type: none;
   margin: 0;
@@ -59,6 +50,7 @@ ul {
   background-color: #333;
 }
 
+/* Link styling */
 a {
   text-decoration: none;
   display: inline-block;
@@ -76,15 +68,17 @@ li a {
   text-decoration: none;
 }
 
+/* Homepage text */
 .homepage {
   font-size: 32px;
 }
 
-/* Change the link color to #111 (black) on hover */
+/* Hover effect for navbar links */
 li a:hover {
   background-color: #111;
 }
 
+/* Input styling */
 input {
   padding: 12px 40px 12px 20px;
   margin: 8px 0;
@@ -95,7 +89,7 @@ input {
   width: 100%;
 }
 
-/*Navbar style*/
+/* Navbar styles */
 .navbar {
   overflow: hidden;
   background-color: #333;
@@ -110,6 +104,7 @@ input {
   text-decoration: none;
 }
 
+/* Dropdown menu styles */
 .dropdown {
   float: left;
   overflow: hidden;
@@ -126,6 +121,7 @@ input {
   margin: 0;
 }
 
+/* Navbar and dropdown hover */
 .navbar a:hover, .dropdown:hover .dropbtn {
   background-color: red;
 }
@@ -155,12 +151,12 @@ input {
   display: block;
 }
 
+/* Block Informations */
 .container{
   display: flex; 
   flex-wrap: wrap; 
 }
 
-/*Block Informations*/
 .item{
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   width: 33%;
@@ -168,6 +164,7 @@ input {
   margin: auto;
   background-color: #776353;
 }
+
  .item-info{
    padding: 0.1rem;
    text-align: center;
@@ -177,7 +174,7 @@ input {
   width: 100%;
 }
 
-/*Item Grid*/
+/* Item Grid */
 .grid_container {
   display: grid;
   gap: 70px;
@@ -197,6 +194,7 @@ input {
   overflow-wrap: normal;
 }
 
+/* Combo navigation */
 .previous_combo {
   float: left;
   width: 100px;
@@ -205,9 +203,10 @@ input {
 }
 
 .random_combo {
-  margin-left: 75vh;
+  left: 38%;
   width: 100px;
   height: 50px;
+  position: relative;
   font-size: 22px;
 }
 
@@ -218,6 +217,7 @@ input {
   font-size: 22px;
 }
 
+/* Submit information button */
 #submit {
   cursor: pointer;
   width: 200px;
@@ -226,6 +226,7 @@ input {
   text-align: center;
 }
 
+/* Account system styles */
 #delete-account {
   color: red;
 }
@@ -272,6 +273,7 @@ input {
   color: white;
 }
 
+/* Grid items part 2 */
 #combo_grid {
   align-items: center;
 }
@@ -280,6 +282,7 @@ input {
   align-items: center;
 }
 
+/* Combo Input random button */
 #random_submit {
   background-color: rgb(70, 214, 135);
   cursor: pointer;
@@ -292,6 +295,7 @@ input {
   justify-content: center;
 }
 
+/* Data reference style */
 .source {
   display: block;
   width: 100%;
@@ -358,8 +362,138 @@ input {
   cursor: pointer;
 }
 
+/* Media queries (<600px devices) */
 @media screen and (max-width: 600px) {
   body {
-    background-color: #000000;
+    display: flex;
+    margin-top: auto;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+  }
+
+  footer {
+    margin-top: auto;
+    text-align: center;
+    font-size: 16px;
+    background-color: black;
+    color: white;
+  }
+
+  .blanket_route {
+    background-color: #399e5a;
+  }
+
+  .bed_base_route {
+    background-color: #464f51;
+  }
+
+  .mattress_route {
+    background-color: #c3a995;
+  }
+
+  p {
+    font-size: 20px;
+  }
+
+  b {
+    font-size: 20px;
+  }
+
+  h1 {
+    font-family: "Lato", sans-serif;
+    font-size: 30px;
+  }
+
+  ul {
+    background-color: #333;
+  }
+
+  li a {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .homepage {
+    font-size: 24px;
+  }
+
+  input {
+    padding: 10px;
+    font-size: 14px;
+    width: 80%;
+  }
+
+  .navbar a {
+    font-size: 14px;
+  }
+
+  .dropdown .dropbtn {
+    font-size: 14px;
+  }
+
+  .container {
+    flex-direction: column;
+  }
+
+  .item {
+    width: 100%;
+    margin: 0;
+  }
+
+  .grid_container {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: auto;
+    gap: 5px;
+  }
+
+  .grid_item {
+    font-size: 20px;
+    padding: 15px;
+  }
+
+  .previous_combo, .next_combo, .random_combo {
+    width: 100px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .random_combo {
+    left: 24%;
+  }
+
+  #submit {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  #dashboard-logout, #dashboard-delete {
+    font-size: 18px;
+    padding: 12px 28px;
+  }
+
+  #random_submit {
+    width: 100%;
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .source {
+    font-size: 14px;
+  }
+
+  .homebutton {
+    font-size: 14px;
+  }
+
+  #password-eye-icon, #password-login-eye-icon, #confirm-eye-icon {
+    right: 60px;
+    top: 40%;
+  }
+
+  .border {
+    width: 80%;
+    padding: 10px;
   }
 }

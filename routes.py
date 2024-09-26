@@ -31,14 +31,16 @@ def deliberate_error():
     raise Exception("You have forced the internal server error")
 
 
+# Execute queries in a function for simplicity
 def execute_query(query, params=(), fetchone=False, fetchall=False,
                   commit=False):
     conn = sqlite3.connect('beds.db')
     cur = conn.cursor()
-    try:
+    try:  # Execute a query with parameters
         cur.execute(query, params)
         if commit:
             conn.commit()
+
         if fetchone:
             result = cur.fetchone()
         elif fetchall:
@@ -46,11 +48,22 @@ def execute_query(query, params=(), fetchone=False, fetchall=False,
         else:
             result = None
     except sqlite3.Error as e:
-        print(f"An error occurred: {e}")
+        # Return 500 Page when an error occurs
+        str(e).split().clear()
         result = None
+        return render_template("500.html"), 500
     finally:
         conn.close()
     return result
+
+
+def robust_limits():
+    return {
+        "username_min_limit": 6,
+        "username_max_limit": 30,
+        "password_min_limit": 8,
+        "password_max_limit": 64
+    }
 
 
 # Get combo id submitted by user
@@ -94,6 +107,7 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     get_flashed_messages()
+    limits = robust_limits()
     if 'username' in session:
         # Checks whether user is logged in or not
         flash("You are already logged in")
@@ -121,15 +135,12 @@ def register():
             hashed_password = bcrypt.generate_password_hash(
                 password).decode('utf-8')
             # Add data into database
-            conn = sqlite3.connect('beds.db')
-            cur = conn.cursor()
 
             try:
                 # Checks whether username is unique
-                cur.execute('INSERT INTO Details (Username, Password)\
-                            VALUES (?, ?)',
-                            (username, hashed_password))
-                conn.commit()
+                execute_query('INSERT INTO Details (Username, Password)\
+                            VALUES (?, ?)', (username, hashed_password),
+                              commit=True)
             except sqlite3.IntegrityError:
                 # Handle error caused by unique constraint (no equal inputs)
                 flash('Username already exists. Please choose a different one')
@@ -143,15 +154,13 @@ def register():
                     return redirect('/dashboard')
                 else:
                     # Delete the commit if they're not the same
-                    cur.execute("DELETE FROM Details WHERE UserID=(SELECT \
-                                MAX(UserID) FROM Details)")
-                    conn.commit()
-                    conn.close()
+                    execute_query("DELETE FROM Details WHERE UserID=(SELECT \
+                                MAX(UserID) FROM Details)", commit=True)
 
                     flash("Passwords don't match")
                     return redirect('/register')
 
-        return render_template('register.html')
+        return render_template('register.html', **limits)
 
 
 # Account dashboard route
@@ -182,12 +191,10 @@ def delete():
     if 'username' in session:
         username = session['username']
 
-        conn = sqlite3.connect('beds.db')
-        cur = conn.cursor()
         # Look for the current username in the database and deletes it
         try:
-            cur.execute('DELETE FROM Details WHERE Username=?', (username,))
-            conn.commit()
+            execute_query('DELETE FROM Details WHERE Username=?', (username,),
+                          commit=True)
         except TypeError:
             return render_template("404.html"), 404
         else:
@@ -203,8 +210,6 @@ def delete():
 @app.route('/bed_base/<int:id>')
 # Ensures that id can be empty as well to allow redirecting
 def bed_base(id):
-    conn = sqlite3.connect('beds.db')
-    cur = conn.cursor()
     base = None
     if id is None:
         # Checks if id is empty and redirects to id=0
@@ -212,16 +217,15 @@ def bed_base(id):
     elif id == 0:
         # Grabs everything if id is 0
         # Else grab individual data
-        cur.execute('SELECT * FROM Base')
-        base = cur.fetchall()
+        base = execute_query('SELECT * FROM Base', fetchall=True)
         return render_template('all_base.html', base=base)
     else:
         try:
-            cur.execute('SELECT * FROM Base WHERE BaseID=?', (id,))
+            base = execute_query('SELECT * FROM Base WHERE BaseID=?', (id,),
+                                 fetchone=True)
         except OverflowError:
             return render_template('404.html'), 404
-        else:
-            base = cur.fetchone()
+
         if base is None:
             # Returns 404 error page when nothing is found
             # Else returns available data
@@ -236,8 +240,6 @@ def bed_base(id):
 @app.route('/mattress/<int:id>')
 # Ensures that id can be empty as well to allow redirecting
 def mattress(id):
-    conn = sqlite3.connect('beds.db')
-    cur = conn.cursor()
     mattress = None
     if id is None:
         # Checks if id is empty and redirects to id=0
@@ -245,16 +247,15 @@ def mattress(id):
     elif id == 0:
         # Grabs everything if id is 0
         # Else grab individual data
-        cur.execute('SELECT * FROM Mattress')
-        mattress = cur.fetchall()
+        mattress = execute_query('SELECT * FROM Mattress', fetchall=True)
         return render_template('all_mattress.html', mattress=mattress)
     else:
         try:
-            cur.execute('SELECT * FROM Mattress WHERE MattressID=?', (id,))
+            mattress = execute_query('SELECT * FROM Mattress WHERE \
+                                     MattressID=?', (id,), fetchone=True)
         except OverflowError:
             return render_template('404.html'), 404
-        else:
-            mattress = cur.fetchone()
+
         if mattress is None:
             # Returns 404 error page when nothing is found
             # Else returns available data
@@ -269,8 +270,6 @@ def mattress(id):
 @app.route('/blanket/<int:id>')
 # Ensures that id can be empty as well to allow redirecting
 def routes(id):
-    conn = sqlite3.connect('beds.db')
-    cur = conn.cursor()
     blanket = None
     if id is None:
         # Checks if id is empty and redirects to id=0
@@ -278,16 +277,15 @@ def routes(id):
     elif id == 0:
         # Grabs everything if id is 0
         # Else grab individual data
-        cur.execute('SELECT * FROM Blankets')
-        blanket = cur.fetchall()
+        blanket = execute_query('SELECT * FROM Blankets', fetchall=True)
         return render_template('all_blanket.html', blanket=blanket)
     else:
         try:
-            cur.execute('SELECT * FROM Blankets WHERE BlanketID=?', (id,))
+            blanket = execute_query('SELECT * FROM Blankets WHERE BlanketID=?',
+                                    (id,), fetchone=True)
         except OverflowError:
             return render_template('404.html'), 404
-        else:
-            blanket = cur.fetchone()
+
         if blanket is None:
             # Returns 404 error page when nothing is found
             # Else returns available data
@@ -302,8 +300,6 @@ def routes(id):
 @app.route("/combos/<int:id>")
 # Ensures that id can be empty as well to allow redirecting
 def combos(id):
-    conn = sqlite3.connect('beds.db')
-    cur = conn.cursor()
     combo = None
     if id is None:
         # Checks if id is empty and redirects to id=0
@@ -314,7 +310,7 @@ def combos(id):
     else:
         # Get combo based on id
         try:
-            cur.execute('SELECT BedCombos.RelationshipID,\
+            combo = execute_query('SELECT BedCombos.RelationshipID,\
                                 Base.*, \
                                 Blankets.*, \
                                 Mattress.*\
@@ -324,11 +320,11 @@ def combos(id):
                         Blankets.BlanketID\
                         JOIN Mattress ON BedCombos.MattressID = \
                         Mattress.MattressID \
-                        WHERE BedCombos.RelationshipID=?', (id,))
+                        WHERE BedCombos.RelationshipID=?', (id,),
+                                  fetchone=True)
         except OverflowError:
             return render_template('404.html'), 404
-        else:
-            combo = cur.fetchone()
+
         if combo is None:
             # Returns 404 error page when nothing is found
             # Else returns available data
@@ -339,4 +335,4 @@ def combos(id):
 
 # Running the website
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)

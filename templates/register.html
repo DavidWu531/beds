@@ -5,6 +5,7 @@
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register</title>
   <link rel="stylesheet" href="/static/style.css">
   <script src="/static/node.js"></script>
@@ -17,22 +18,22 @@
           </div></br></br></br>
         <h2 class="word">
             <form action="/register" method="POST">
-              <div class="msg">
+              <div class="msg" style="color: red;">
                 {% with messages = get_flashed_messages() %}
                   {% if messages %}
                     {{messages[-1]}}
                   {% endif %}
                 {% endwith %}
               <br></h2>
-                <input id="username" name="username" type="text" placeholder="Enter Your Username" minlength="6" maxlength="30" class="textbox" required/></br></br>
+                <input id="username" name="username" type="text" placeholder="Enter Your Username" minlength="{{ username_min_limit }}" maxlength="{{ username_max_limit }}" class="textbox" required/></br></br>
                 
                 <div style="position: relative;">
-                  <input id="password" name="password" type="password" placeholder="Enter Your Password" minlength="8" class="textbox" required/></br></br>
+                  <input id="password" name="password" type="password" placeholder="Enter Your Password" minlength="{{ password_min_limit }}" maxlength="{{ password_max_limit }}" class="textbox" required/></br></br>
                   <i class="fas fa-eye eye-icon" id="password-eye-icon" onclick="show_password_password()"></i>
                 </div>
                 
                 <div style="position: relative;">
-                  <input id="confirm-password" name="confirm-password" type="password" placeholder="Confirm Your Password" minlength="8" class="textbox" required/></br></br>
+                  <input id="confirm-password" name="confirm-password" type="password" placeholder="Confirm Your Password" minlength="{{ password_min_limit }}" maxlength="{{ password_max_limit }}" class="textbox" required/></br></br>
                   <i class="fas fa-eye eye-icon" id="confirm-eye-icon" onclick="show_password_confirm()"></i>
                 </div>
                 
